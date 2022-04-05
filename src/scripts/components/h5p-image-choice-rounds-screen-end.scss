@@ -1,0 +1,39 @@
+@import '../../styles/h5p-image-choice-rounds-main';
+
+.h5p-image-choice-rounds-screen-end {
+  .h5p-image-choice-rounds-screen-placeholder-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    .h5p-question-feedback {
+      margin: 0;
+
+      .h5p-question-feedback-container {
+        text-align: center;
+      }
+    }
+
+    .h5p-question-scorebar {
+      margin: 0 0 1em 0;
+      padding: 0;
+    }
+
+    .h5p-question-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin: 0;
+
+      .h5p-joubelui-button {
+        &:first-child {
+          margin: 0 0.5em 1em 0;
+        }
+
+        &:last-child {
+          margin: 0 0 1em 0.5em;
+        }
+      }
+    }
+  }
+}

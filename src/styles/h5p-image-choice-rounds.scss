@@ -1,0 +1,48 @@
+@import './h5p-image-choice-rounds-main';
+
+.h5p-image-choice-rounds {
+  .h5p-question-content {
+    margin: 0;
+
+    .h5p-image-choice-rounds-pages-container {
+      .h5p-image-choice-rounds-pages {
+        overflow: hidden;
+
+        .h5p-image-choice-rounds-page {
+          float: left;
+          margin-left: -100%;
+          position: relative;
+          transition: left .35s;
+          width: 100%;
+
+          &.past {
+            left: 0%;
+          }
+          &.present {
+            left: 100%;
+            z-index: 2;
+          }
+          &.future {
+            left: 200%;
+          }
+          &.display-none {
+            display: none;
+          }
+
+          .h5p-multi-media-choice {
+            padding-bottom: 0;
+            padding-left: 1em;
+          }
+        }
+      }
+    }
+  }
+
+  &> .h5p-question-feedback {
+    display: none;
+  }
+
+  &> .h5p-question-scorebar {
+    display: none;
+  }
+}

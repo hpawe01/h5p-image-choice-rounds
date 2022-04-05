@@ -1,0 +1,24 @@
+@import '../../styles/h5p-image-choice-rounds-main';
+
+.h5p-image-choice-rounds-feedback-section {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .h5p-image-choice-rounds-score-text {
+    color: $color-joubelui-button;
+    font-weight: 700;
+    margin: 0.5em 0;
+    text-align: center;
+  }
+
+  .h5p-joubelui-score-bar {
+    margin-bottom: 1.5em;
+  }
+
+  &.h5p-image-choice-rounds-display-none {
+    display: none;
+  }
+}

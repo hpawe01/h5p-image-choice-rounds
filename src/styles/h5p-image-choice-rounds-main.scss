@@ -1,0 +1,27 @@
+$titlebarButtonSize: 2.75em;
+$titlebarButtonBackgroundSize: 1.15em;
+
+// Colors
+$color-primary: rgb(26, 115, 217);
+$color-primary-5: rgba(26, 115, 217, .05);
+$color-primary-10: rgba(26, 115, 217, .1);
+$color-primary-90: rgba(26, 115, 217, .9);
+$color-primary-95: rgba(26, 115, 217, .95);
+
+$color-text-dark: #4c4452;
+$color-text-light: #fff;
+$color-separator: #ccc;
+$color-shadow-dark: rgba(0, 0, 0, .2);
+$color-shadow-light: rgba(166, 166, 166, .2);
+
+$color-joubelui-button: #1a73d9;
+$color-joubelui-button-hover: #1356a3;
+$color-joubelui-button-active: #104888;
+
+$icon-button-left-blue: url("../../images/button-left-icon-blue.svg");
+$icon-button-left-grey: url("../../images/button-left-icon-grey.svg");
+$icon-button-right-blue: url("../../images/button-right-icon-blue.svg");
+$icon-button-right-grey: url("../../images/button-right-icon-grey.svg");
+
+// Symbols
+$symbol-retry: "\F01E";

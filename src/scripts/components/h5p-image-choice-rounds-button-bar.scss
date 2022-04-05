@@ -1,0 +1,52 @@
+@import '../../styles/h5p-image-choice-rounds-main';
+
+.h5p-image-choice-rounds-button-bar {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  padding: .5em 1em;
+  width: 100%;
+
+  .h5p-image-choice-rounds-round-announcer {
+    text-align: center;
+    width: 100%;
+  }
+
+  .h5p-image-choice-rounds-button {
+    &.h5p-image-choice-rounds-button-left {
+      background-image: $icon-button-left-blue;
+
+      &.h5p-image-choice-rounds-button-disabled {
+        background-image: $icon-button-left-grey;
+      }
+
+      &.h5p-image-choice-rounds-button-active {
+        background-image: $icon-button-left-blue;
+        background-color: initial;
+
+        &:hover {
+          background-color: $color-primary-5;
+        }
+      }
+    }
+
+    &.h5p-image-choice-rounds-button-right {
+      background-image: $icon-button-right-blue;
+
+      &.h5p-image-choice-rounds-button-disabled {
+        background-image: $icon-button-right-grey;
+      }
+
+      &.h5p-image-choice-rounds-button-active {
+        background-image: $icon-button-right-blue;
+        background-color: initial;
+
+        &:hover {
+          background-color: $color-primary-5;
+        }
+      }
+    }
+  }
+}
