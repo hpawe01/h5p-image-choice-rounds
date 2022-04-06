@@ -16,6 +16,8 @@ export default class ImageChoiceRoundsPool {
     // Set up pool of options, may get depleted over time
     this.pool = this.params.instanceParams.params.options || [];
 
+    this.discarded = [];
+
     // Instantiate instances for rounds
     this.instanceBundles = {};
     for (let round = 0; round < this.params.numberRounds; round++) {
@@ -45,13 +47,23 @@ export default class ImageChoiceRoundsPool {
     const randomOptions = candidates[Math.floor(Math.random() * candidates.length)];
 
     // Remove chosen random options from pool
-    if (this.params.modeSampling === 'withoutReplacement') {
-      const poolIndex = this.pool.findIndex((option) => option === randomOptions);
-      // Array.splice has side-effects
-      this.pool = [...this.pool.slice(0, poolIndex), ...this.pool.slice(poolIndex + 1)];
-    }
+    // if (this.params.modeSampling === 'withoutReplacement') {
+    const poolIndex = this.pool.findIndex((option) => option === randomOptions);
+    this.discarded.push(randomOptions);
+
+    // Array.splice has side-effects
+    this.pool = [...this.pool.slice(0, poolIndex), ...this.pool.slice(poolIndex + 1)];
+    // }
 
     return randomOptions;
+  }
+
+  /**
+   * Restock pool with discarded piles.
+   */
+  restock() {
+    this.pool = [...this.pool, ...this.discarded];
+    this.discarded = [];
   }
 
   /**
@@ -98,6 +110,11 @@ export default class ImageChoiceRoundsPool {
         // Shuffle
         overrideOptions = Util.shuffleArray(overrideOptions);
       }
+    }
+
+    // Put cards back into pool if playing with replacement
+    if (this.params.modeSampling === 'withReplacement') {
+      this.restock();
     }
 
     // Override options
