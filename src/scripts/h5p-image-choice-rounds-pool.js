@@ -11,7 +11,6 @@ export default class ImageChoiceRoundsPool {
 
     // Override content's default parameters
     this.params.instanceParams.params.behaviour.enableRetry = false;
-    this.params.instanceParams.params.behaviour.enableSolutionsButton = false;
     this.params.instanceParams.params.behaviour.showSolutionsRequiresInput = false;
 
     // Set up pool of options, may get depleted over time
