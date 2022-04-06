@@ -72,6 +72,29 @@
         "importance": "low",
         "default": false,
         "optional": true
+      },
+      {
+        "name": "enableSolutionsButton",
+        "label": "Enable \"Show Solution\" button",
+        "type": "boolean",
+        "importance": "low",
+        "default": true,
+        "optional": true
+      },
+      {
+        "name": "confirmCheckDialog",
+        "label": "Show confirmation dialog on \"Check\"",
+        "importance": "low",
+        "type": "boolean",
+        "default": false,
+        "optional": true
+      },
+      {
+        "name": "singlePoint",
+        "type": "boolean",
+        "label": "Give one point for the whole question",
+        "importance": "low",
+        "default": false
       }
     ]
   },

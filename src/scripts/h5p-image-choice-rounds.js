@@ -80,6 +80,9 @@ export default class ImageChoiceRounds extends H5P.Question {
       numberImages: numberImages,
       numberImagesCorrect: numberImagesCorrect,
       negativeIsAllowed: this.params.roundOptions.negativeIsAllowed,
+      enableSolutionsButton: this.params.roundOptions.enableSolutionsButton,
+      confirmCheckDialog: this.params.roundOptions.confirmCheckDialog,
+      singlePoint: this.params.roundOptions.singlePoint,
       previousState: this.previousState?.children
     }, this);
 
