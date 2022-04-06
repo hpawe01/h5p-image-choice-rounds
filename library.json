@@ -35,6 +35,11 @@
   ],
   "editorDependencies": [
     {
+      "machineName": "H5PEditor.ImageChoiceRounds",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
       "machineName": "H5PEditor.RangeList",
       "majorVersion": 1,
       "minorVersion": 0
