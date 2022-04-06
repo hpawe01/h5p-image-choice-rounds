@@ -145,6 +145,15 @@ export default class ImageChoiceRoundsPool {
       }
     );
 
+    // Override original getScore functions to support negative values
+    instance.getScore = () => {
+      const negativeIsAllowed = this.params.negativeIsAllowed;
+      return this.customGetScore(instance, negativeIsAllowed);
+    };
+    instance.content.getScore = (negativeIsAllowed = false) => {
+      return this.customContentGetScore(instance.content, negativeIsAllowed);
+    };
+
     /*
      * Official MultiMediaChoice doesn't support resume (yet).
      * Workaround to recreate it only if not already done by
@@ -229,6 +238,70 @@ export default class ImageChoiceRoundsPool {
         target.trigger(eventName, event);
       });
     });
+  }
+
+  /**
+   * Custom get score function that allows negative values.
+   */
+  customGetScore(main, negativeIsAllowed = false) {
+    return main.content.getScore(negativeIsAllowed);
+  }
+
+  /**
+   * Custom get score function that allows negative values.
+   */
+  customContentGetScore(content, negativeIsAllowed = false) {
+    // One point if no correct options and no selected options
+    if (content.params.behaviour.singlePoint && content.params.behaviour.passPercentage === 0) {
+      return 1;
+    }
+
+    if (!content.isAnyAnswerSelected()) {
+      return content.isBlankCorrect() ? 1 : 0;
+    }
+
+    // Radio buttons, only one answer
+    if (content.isSingleAnswer) {
+      const isCorrect = content.lastSelectedRadioButtonOption.isCorrect();
+      if (isCorrect) {
+        return 1;
+      }
+
+      return (negativeIsAllowed) ? -1 : 0;
+    }
+
+    // Checkbox buttons. 1 point for correct answer, -1 point for incorrect answer
+    let score = 0;
+    content.options.forEach(option => {
+      if (option.isSelected()) {
+        option.isCorrect() ? score++ : score--;
+      }
+    });
+
+    if (!negativeIsAllowed) {
+      score = Math.max(0, score); // Negative score not allowed
+    }
+
+    /**
+     * Checkbox buttons with single point.
+     * One point if (score / number of correct options) is above pass percentage
+     */
+    if (content.params.behaviour.singlePoint) {
+      if (score === 0) {
+        return 0; // Case with passPercentage = 0 already handled
+      }
+
+      if (score > 0) {
+        return (score * 100) / content.numberOfCorrectOptions >= content.params.behaviour.passPercentage
+          ? 1
+          : 0;
+      }
+      else {
+        return -1;
+      }
+    }
+
+    return score;
   }
 
   /**

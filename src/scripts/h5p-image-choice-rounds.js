@@ -30,7 +30,8 @@ export default class ImageChoiceRounds extends H5P.Question {
       roundOptions: {
         numberRounds: 1,
         numberImages: Infinity,
-        modeSampling: 'withReplacement'
+        modeSampling: 'withReplacement',
+        negativeIsAllowed: false
       },
       behaviour: {
         modeFeedback: 'totalScore',
@@ -78,6 +79,7 @@ export default class ImageChoiceRounds extends H5P.Question {
       numberRounds: this.params.roundOptions.numberRounds,
       numberImages: numberImages,
       numberImagesCorrect: numberImagesCorrect,
+      negativeIsAllowed: this.params.roundOptions.negativeIsAllowed,
       previousState: this.previousState?.children
     }, this);
 
@@ -204,20 +206,10 @@ export default class ImageChoiceRounds extends H5P.Question {
   updateEndscreen() {
     const score = this.getScore();
     const maxScore = this.getMaxScore();
-
-    let text = '';
-    if (this.params.behaviour.modeFeedback !== 'custom') {
-      text = H5P.Question.determineOverallFeedback(
-        this.params.endscreen.overallFeedback,
-        score / maxScore
-      );
-    }
-    else {
-      text = H5P.Question.determineOverallFeedback(
-        this.params.endscreen.overallFeedback,
-        this.getScoreTotalScore() / this.getMaxScoreTotalScore()
-      );
-    }
+    const text = H5P.Question.determineOverallFeedback(
+      this.params.endscreen.overallFeedback,
+      score / maxScore
+    );
 
     this.setFeedback(text, score, maxScore, text);
   }
@@ -242,7 +234,7 @@ export default class ImageChoiceRounds extends H5P.Question {
 
   /**
    * Get latest score for total score mode.
-   * @return {number} latest score.
+   * @return {number} Latest score.
    */
   getScoreTotalScore() {
     let score = 0;
@@ -252,7 +244,7 @@ export default class ImageChoiceRounds extends H5P.Question {
       score += bundles[i].instance.getScore();
     }
 
-    return score;
+    return Math.max(0, score);
   }
 
   /**
