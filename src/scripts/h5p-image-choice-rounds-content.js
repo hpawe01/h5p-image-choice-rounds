@@ -17,7 +17,6 @@ export default class ImageChoiceRoundsContent {
       }
     }, params);
 
-
     this.callbacks = Util.extend({
       progress: () => {},
       resize: () => {}
@@ -278,6 +277,14 @@ export default class ImageChoiceRoundsContent {
       }
     });
 
+    const currentInstance = this.params.bundles[this.currentPageIndex].instance;
+    if (
+      typeof currentInstance?.setActivityStarted === 'function' &&
+      !currentInstance.activityStartTime
+    ) {
+      currentInstance.setActivityStarted();
+    }
+
     this.isSwiping = false;
 
     this.callbacks.resize();
@@ -329,6 +336,7 @@ export default class ImageChoiceRoundsContent {
   resetTask() {
     for (let i in this.params.bundles) {
       if (this.params.bundles[i].instance) {
+        delete this.params.bundles[i].instance.activityStartTime;
         this.params.bundles[i]?.instance.resetTask();
       }
 
