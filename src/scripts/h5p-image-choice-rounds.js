@@ -69,8 +69,6 @@ export default class ImageChoiceRounds extends H5P.Question {
     // this.previousState now holds the saved content state of the previous session
     this.previousState = this.extras.previousState || {};
 
-    console.log(this.previousState);
-
     this.viewState = this.previousState.viewState || 'task';
 
     if (!this.params.instanceParams?.params?.options?.length) {

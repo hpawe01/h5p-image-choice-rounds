@@ -35,7 +35,8 @@ export default class ImageChoiceRoundsContent {
       this.params.contentId
     );
     this.params.bundles.push({
-      element: this.endscreen.getDOM()
+      element: this.endscreen.getDOM(),
+      progression: { left: false, right: false }
     });
 
     // Build content
