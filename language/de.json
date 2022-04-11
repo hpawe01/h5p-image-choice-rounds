@@ -73,9 +73,10 @@
                   {
                     "label": "Punktebereich"
                   },
+                  {},
                   {
-                    "label": "Rückmeldung für jeweiligen Punktebereich",
-                    "placeholder": "Trage die Rückmeldung ein"
+                    "label": "Feedback for defined score range",
+                    "placeholder": "Fill in the feedback"
                   }
                 ]
               }
@@ -120,8 +121,9 @@
                   {
                     "label": "Punktebereich"
                   },
+                  {},
                   {
-                    "label": "Punkte für jeweiligen Punktebereich"
+                    "label": "Score for range"
                   }
                 ]
               }
@@ -161,6 +163,10 @@
           "label": "Beschriftung der Rundenanzeige",
           "description": "@current ist ein Platzhalter und wird durch den entsprechenden Wert ersetzt.",
           "default": "Runde @current"
+        },
+        {
+          "label": "Hinweis auf fehlende Bilder",
+          "default": "Es wurden keine Bilder gesetzt."
         }
       ]
     },

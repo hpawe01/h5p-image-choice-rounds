@@ -73,6 +73,7 @@
                   {
                     "label": "Score Range"
                   },
+                  {},
                   {
                     "label": "Feedback for defined score range",
                     "placeholder": "Fill in the feedback"
@@ -120,6 +121,7 @@
                   {
                     "label": "Score Range"
                   },
+                  {},
                   {
                     "label": "Score for range"
                   }
@@ -161,6 +163,10 @@
           "label": "Text for round announcer",
           "description": "@current is a placeholder and will be replaced by the actual value.",
           "default": "Round @current"
+        },
+        {
+          "label": "Message for missing images",
+          "default": "No images were set."
         }
       ]
     },

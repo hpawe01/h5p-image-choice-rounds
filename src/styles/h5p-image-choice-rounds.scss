@@ -4,6 +4,11 @@
   .h5p-question-content {
     margin: 0;
 
+    .h5p-image-choice-rounds-message {
+      padding: 1em;
+      text-align: center;
+    }
+
     .h5p-image-choice-rounds-pages-container {
       .h5p-image-choice-rounds-pages {
         overflow: hidden;

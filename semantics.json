@@ -354,6 +354,13 @@
         "description": "@current is a placeholder and will be replaced by the actual value.",
         "importance": "low",
         "default": "Round @current"
+      },
+      {
+        "name": "noImages",
+        "type": "text",
+        "label": "Message for missing images",
+        "importance": "low",
+        "default": "No images were set."
       }
     ]
   },
