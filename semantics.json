@@ -206,7 +206,7 @@
       {
         "name": "modeFeedback",
         "label": "Mode for overall scoring",
-        "description": "\"Total score\" will sum up scores of all rounds \"One point total\" will award 1 point if all rounds were fully correct, 0 otherwise. \"Custom\" allows to define a score based on score ranges.",
+        "description": "\"Total score\" will sum up scores of all rounds. \"One point total\" will award 1 point if all rounds were fully correct, 0 otherwise. \"Custom\" allows to define a score based on score ranges.",
         "type": "select",
         "importance": "low",
         "options": [
