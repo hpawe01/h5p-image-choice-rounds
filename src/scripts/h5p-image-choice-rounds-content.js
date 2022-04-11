@@ -337,4 +337,19 @@ export default class ImageChoiceRoundsContent {
 
     this.swipeTo(0);
   }
+
+  /**
+   * Get xAPI Data for reporting.
+   * @return {object[]} xAPIData.
+   */
+  getXAPIData() {
+    return this.params.bundles
+      .map(bundle => {
+        if (typeof bundle?.instance?.getXAPIData !== 'function') {
+          return;
+        }
+        return bundle.instance.getXAPIData();
+      })
+      .filter(data => !!data);
+  }
 }

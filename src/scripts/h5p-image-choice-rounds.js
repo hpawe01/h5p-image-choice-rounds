@@ -186,6 +186,7 @@ export default class ImageChoiceRounds extends H5P.Question {
 
       if (this.viewState === 'task') {
         this.setViewState('results');
+        this.trigger(this.getXAPICompletedEvent());
       }
 
       // Endscreen is showing
@@ -411,9 +412,15 @@ export default class ImageChoiceRounds extends H5P.Question {
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-6}
    */
   getXAPIData() {
+    const xAPIEvent = this.getXAPICompletedEvent();
+
+    // H5P reporting expects 'answered' and 'compound'
+    xAPIEvent.setVerb('answered');
+    xAPIEvent.data.statement.object.definition.interactionType = 'compound';
+
     return {
-      // TODO: Compare this to Column
-      statement: this.getXAPIAnswerEvent().data.statement
+      statement: xAPIEvent.data.statement,
+      children: this.content.getXAPIData()
     };
   }
 
@@ -421,16 +428,11 @@ export default class ImageChoiceRounds extends H5P.Question {
    * Build xAPI answer event.
    * @return {H5P.XAPIEvent} XAPI answer event.
    */
-  getXAPIAnswerEvent() {
-    const xAPIEvent = this.createXAPIEvent('answered');
+  getXAPICompletedEvent() {
+    const xAPIEvent = this.createXAPIEvent('completed');
 
     xAPIEvent.setScoredResult(this.getScore(), this.getMaxScore(), this,
       true, this.isPassed());
-
-    /*
-     * TODO: Add other properties here as required, e.g. xAPIEvent.data.statement.result.response
-     * https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#245-result
-     */
 
     return xAPIEvent;
   }
@@ -441,10 +443,15 @@ export default class ImageChoiceRounds extends H5P.Question {
    * @return {H5P.XAPIEvent} Event template.
    */
   createXAPIEvent(verb) {
-    let xAPIEvent = this.createXAPIEventTemplate(verb);
-    xAPIEvent = Util.extend(
+    const xAPIEvent = this.createXAPIEventTemplate(verb);
+
+    const definition = Util.extend(
       xAPIEvent.getVerifiedStatementValue(['object', 'definition']),
-      this.getxAPIDefinition());
+      this.getxAPIDefinition()
+    );
+
+    xAPIEvent.data.statement.object.definition = definition;
+
     return xAPIEvent;
   }
 
