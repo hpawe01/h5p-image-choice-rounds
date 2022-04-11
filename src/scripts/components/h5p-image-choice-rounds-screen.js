@@ -10,9 +10,7 @@ export default class ImageChoiceRoundsScreen {
    * @param {object} [callbacks] Callbacks.
    */
   constructor(params = {}, callbacks = {}, contentId) {
-    this.params = Util.extend({
-      l10n: {}
-    }, params);
+    this.params = Util.extend({}, params);
 
     // Sanitize callbacks
     this.callbacks = Util.extend({

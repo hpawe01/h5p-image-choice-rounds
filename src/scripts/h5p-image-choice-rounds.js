@@ -1,6 +1,7 @@
 // Import required classes
 import ImageChoiceRoundsContent from './h5p-image-choice-rounds-content';
 import ImageChoiceRoundsPool from './h5p-image-choice-rounds-pool';
+import Dictionary from './h5p-image-choice-rounds-dictionary';
 import Util from './h5p-image-choice-rounds-util';
 
 /**
@@ -51,9 +52,19 @@ export default class ImageChoiceRounds extends H5P.Question {
         retry: 'Retry the task. Reset all responses and start the task over again.',
         finish: 'Finish',
         results: 'Results',
-        yourResult: 'You got @score out of @total points'
+        yourResult: 'You got @score out of @total points',
+        previousRound: 'Previous round',
+        previousRoundDisabled: 'Previous round not available',
+        nextRound: 'Next round',
+        nextRoundDisabled: 'Next round not available'        
       }
     }, params);
+
+    // Fill dictionary
+    Dictionary.fill({
+      l10n: this.params.l10n,
+      a11y: this.params.a11y
+    });
 
     // this.previousState now holds the saved content state of the previous session
     this.previousState = this.extras.previousState || {};
@@ -157,14 +168,14 @@ export default class ImageChoiceRounds extends H5P.Question {
     const isShowingEndScreen = this.content.getCurrentPageIndex() >= Object.keys(this.pool.instanceBundles).length;
 
     // Show solution button
-    this.addButton('show-solution', this.params.l10n.showSolution, () => {
+    this.addButton('show-solution', Dictionary.get('l10n.showSolution'), () => {
       this.showSolutions();
     }, isShowingEndScreen && this.params.behaviour.enableSolutionsButton && this.viewState !== 'solutions', {
       'aria-label': this.params.a11y.showSolution
     }, {});
 
     // Retry button
-    this.addButton('try-again', this.params.l10n.tryAgain, () => {
+    this.addButton('try-again', Dictionary.get('l10n.tryAgain'), () => {
       this.hideButton('show-solution');
       this.hideButton('try-again');
 
@@ -193,7 +204,7 @@ export default class ImageChoiceRounds extends H5P.Question {
         this.trigger(this.getXAPICompletedEvent());
       }
 
-      this.read(this.params.a11y.results);
+      this.read(Dictionary.get('a11y.results'));
 
       // Endscreen is showing
       this.updateEndscreen();
@@ -213,7 +224,7 @@ export default class ImageChoiceRounds extends H5P.Question {
       }, 0); // H5P.Question must display button first
     }
     else {
-      this.read(this.params.l10n.progressAnnouncer.replace('@current', currentIndex + 1));
+      this.read(Dictionary.get('l10n.progressAnnouncer').replace('@current', currentIndex + 1));
     }
   }
 

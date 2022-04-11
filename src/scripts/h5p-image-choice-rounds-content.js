@@ -1,5 +1,6 @@
 import ImageChoiceRoundsButtonBar from './components/h5p-image-choice-rounds-button-bar';
 import ImageChoiceRoundsScreenEnd from './components/h5p-image-choice-rounds-screen-end';
+import Dictionary from './h5p-image-choice-rounds-dictionary';
 import Util from './h5p-image-choice-rounds-util';
 
 /** Class representing the content */
@@ -11,10 +12,7 @@ export default class ImageChoiceRoundsContent {
     this.params = Util.extend({
       bundles: [],
       endscreen: {},
-      currentPage: 0,
-      l10n: {
-        round: 'Round'
-      }
+      currentPage: 0
     }, params);
 
     this.callbacks = Util.extend({
@@ -32,7 +30,6 @@ export default class ImageChoiceRoundsContent {
         id: 'end',
         screenImage: this.params.endscreen.endScreenImage,
         screenText: this.params.endscreen.endScreenOutro,
-        l10n: {} // TODO: l10n
       },
       {}, // TODO: callbacks
       this.params.contentId
@@ -56,7 +53,7 @@ export default class ImageChoiceRoundsContent {
         this.params.bundles[i].instance.on('xAPI', (event) => {
           if (event.getVerb() === 'answered') {
             this.params.bundles[i].progression.right = true;
-            if (i < this.params.bundles.length - 1) {
+            if (parseInt(i) < this.params.bundles.length - 1) {
               this.params.bundles[parseInt(i) + 1].progression.left = true;
             }
             this.updateNavigationButtons();
@@ -73,14 +70,7 @@ export default class ImageChoiceRoundsContent {
     }
 
     this.buttonBar = new ImageChoiceRoundsButtonBar(
-      {
-        a11y: {
-          previousRound: 'Previous round',
-          previousRoundDisabled: 'Previous round not available',
-          nextRound: 'Next round',
-          nextRoundDisabled: 'Next round not available'
-        }
-      },
+      {},
       {
         onClickButtonLeft: () => {
           this.swipeLeft();
@@ -184,7 +174,7 @@ export default class ImageChoiceRoundsContent {
   updateRoundAnnouncer() {
     let text = '';
     if (this.params.bundles[this.currentPageIndex].instance) {
-      text = `${this.params.l10n.round} ${this.currentPageIndex + 1}`;
+      text = Dictionary.get('l10n.progressAnnouncer').replace('@current', this.currentPageIndex + 1);
     } // Otherwise end screen
     this.buttonBar.setRoundAnnouncerText(text);
   }
@@ -229,11 +219,13 @@ export default class ImageChoiceRoundsContent {
       this.buttonBar.disableButton('right');
     }
 
-    // Last exercise
-    if (this.currentPageIndex === this.pages.length - 2) {
+    if (
+      this.currentPageIndex === this.pages.length - 2 && // Last exercise
+      this.params.bundles[this.currentPageIndex].progression.right
+    ) {
       this.buttonBar.setButtonAttributes('right', {
-        'aria-label': 'Finish',
-        'title': 'Finish'
+        'aria-label': Dictionary.get('a11y.finish'),
+        'title': Dictionary.get('a11y.finish')
       });
     }
   }
@@ -312,7 +304,6 @@ export default class ImageChoiceRoundsContent {
 
   /**
    * Show results of MultiMediaChoice instance.
-   * @param {H5P.MultiMediaChoice} instance MultiMediaChoice instance.
    */
   showResults() {
     for (let i in this.params.bundles) {
@@ -357,7 +348,7 @@ export default class ImageChoiceRoundsContent {
     for (let i in this.params.bundles) {
       if (this.params.bundles[i].instance) {
         delete this.params.bundles[i].instance.activityStartTime;
-        this.params.bundles[i]?.instance.resetTask();
+        this.params.bundles[i].instance.resetTask();
       }
 
       this.params.bundles[i].progression = { left: false, right: false };

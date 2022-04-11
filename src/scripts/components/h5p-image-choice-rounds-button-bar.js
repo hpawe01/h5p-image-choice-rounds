@@ -1,5 +1,6 @@
 import './h5p-image-choice-rounds-button-bar.scss';
 import ImageChoiceRoundsButton from './h5p-image-choice-rounds-button';
+import Dictionary from './../h5p-image-choice-rounds-dictionary';
 import Util from './../h5p-image-choice-rounds-util';
 
 /** Class representing the button bar */
@@ -23,8 +24,8 @@ export default class ImageChoiceRoundsButtonBar {
     this.buttons.left = new ImageChoiceRoundsButton(
       {
         a11y: {
-          active: this.params.a11y.previousRound,
-          disabled: this.params.a11y.previousRoundDisabled,
+          active: Dictionary.get('a11y.previousRound'),
+          disabled: Dictionary.get('a11y.previousRoundDisabled'),
         },
         classes: [
           'h5p-image-choice-rounds-button',
@@ -43,8 +44,8 @@ export default class ImageChoiceRoundsButtonBar {
     this.buttons.right = new ImageChoiceRoundsButton(
       {
         a11y: {
-          active: this.params.a11y.nextRound,
-          disabled: this.params.a11y.nextRoundDisabled,
+          active: Dictionary.get('a11y.nextRound'),
+          disabled: Dictionary.get('a11y.nextRoundDisabled'),
         },
         classes: [
           'h5p-image-choice-rounds-button',

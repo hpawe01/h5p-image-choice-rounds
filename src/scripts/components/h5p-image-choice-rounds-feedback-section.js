@@ -7,10 +7,10 @@ export default class ImageChoiceRoundsFeedbackSection {
   /**
    * @constructor
    *
-   * @param {object} params Parameter from editor.
-   * @param {object} [callbacks] Callbacks.
+   * @param {object} [params={}] Parameter from editor.
+   * @param {object} [callbacks={}] Callbacks.
    */
-  constructor(params, callbacks) {
+  constructor(params = {}, callbacks = {}) {
     // Set missing params
     this.params = Util.extend({
     }, params || {});

@@ -346,6 +346,14 @@
         "label": "Text for \"Show solution\" button",
         "importance": "low",
         "default": "Show solution"
+      },
+      {
+        "name": "progressAnnouncer",
+        "type": "text",
+        "label": "Text for round announcer",
+        "description": "@current is a placeholder and will be replaced by the actual value.",
+        "importance": "low",
+        "default": "Round @current"
       }
     ]
   },
@@ -376,6 +384,56 @@
         "label": "Assistive technology description for \"Retry\" button",
         "importance": "low",
         "default": "Retry the task. Reset all responses and start the task over again."
+      },
+      {
+        "name": "results",
+        "type": "text",
+        "label": "Assistive technology description for \"Results\" announcement",
+        "importance": "low",
+        "default": "Results"
+      },
+      {
+        "name": "yourResult",
+        "type": "text",
+        "label": "Assistive technology description for \"score\" announcements",
+        "description": "@score will be replaced by the number of points. @total will be replaced by the maximum possible points.",
+        "importance": "low",
+        "default": "You got @score out of @total points"
+      },
+      {
+        "name": "previousRound",
+        "type": "text",
+        "label": "Assistive technology description for \"Previous round\" button",
+        "importance": "low",
+        "default": "Previous round"
+      },
+      {
+        "name": "previousRoundDisabled",
+        "type": "text",
+        "label": "Assistive technology description for \"Previous round\" button when not available",
+        "importance": "low",
+        "default": "Previous round not available"
+      },
+      {
+        "name": "nextRound",
+        "type": "text",
+        "label": "Assistive technology description for \"Next round\" button",
+        "importance": "low",
+        "default": "Next round"
+      },
+      {
+        "name": "nextRoundDisabled",
+        "type": "text",
+        "label": "Assistive technology description for \"Next round\" button when not available",
+        "importance": "low",
+        "default": "Next round not available"
+      },
+      {
+        "name": "finish",
+        "type": "text",
+        "label": "Assistive technology description for \"Finish\" button",
+        "importance": "low",
+        "default": "Finish"
       }
     ]
   }
