@@ -1,0 +1,214 @@
+{
+  "semantics": [
+    {
+      "fields": [
+        {
+          "label": "Image-Choice-Aufgabe"
+        }
+      ]
+    },
+    {
+      "label": "Rundeneinstellungen",
+      "description": "Diese Optionen legen fest, wie die Runden ablaufen.",
+      "fields": [
+        {
+          "label": "Anzahl der Runden"
+        },
+        {
+          "label": "Anzahl von Bildern pro Runde"
+        },
+        {
+          "label": "Anzahl richtiger Bilder pro Runde"
+        },
+        {
+          "label": "Modus für die Bilderauswahl",
+          "description": "Wähle, ob Bilder nach einmaligen Anzeigen wieder in den Pool zurückgelegt werden und erneut auftauchen können oder ob sie nicht zurückgelegt werden. Bitte beachte, dass die Anzahl der (richtigen) Bilder pro Runde nicht garantiert werden kann, wenn du \"Ohne Zurücklegen\" wählst",
+          "options": [
+            {
+              "label": "Mit Zurücklegen"
+            },
+            {
+              "label": "Ohne Zurücklegen"
+            }
+          ]
+        },
+        {
+          "label": "Punkte in einer Runde können negativ sein"
+        },
+        {
+          "label": "\"Lösung zeigen\"-Button anzeigen"
+        },
+        {
+          "label": "Zeige Bestätigungsdialog bei \"Überprüfen\""
+        },
+        {
+          "label": "Gib einen Punkt für die ganze Aufgabe"
+        }
+      ]
+    },
+    {
+      "label": "Endbildschirm",
+      "fields": [
+        {
+          "label": "Bild für den Endbildschirm"
+        },
+        {
+          "label": "Text auf dem Endbildschirm",
+          "placeholder": "Geschafft!"
+        },
+        {
+          "label": "Gesamtrückmeldung",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Vorgabewert"
+                }
+              ],
+              "label": "Lege Rückmeldungen für einzelne Punktebereiche fest",
+              "description": "Klicke auf den \"Bereich hinzufügen\"-Button, um so viele Bereiche hinzuzufügen, wie du brauchst. Beispiel: 0-20% Schlechte Punktzahl, 21-91% Durchschnittliche Punktzahl, 91-100% Großartige Punktzahl!",
+              "entity": "Bereich",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Punktebereich"
+                  },
+                  {
+                    "label": "Rückmeldung für jeweiligen Punktebereich",
+                    "placeholder": "Trage die Rückmeldung ein"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Verhaltenseinstellungen",
+      "description": "Diese Optionen legen fest, wie die Aufgabe im Detail funktioniert.",
+      "fields": [
+        {
+          "label": "Modus für die Gesamtbepunktung",
+          "description": "\"Gesamtpunktzahl\" summiert die Punkte aller Runden auf. \"Ein Punkt insgesamt\" gibt 1 Punkt, wenn alle Runden komplett richtig waren, sonst 0. \"Individuell\" erlaubt es, Punkte basierend auf dem erzielten Punktebereich zu vergeben.",
+          "options": [
+            {
+              "label": "Gesamtpunktzahl"
+            },
+            {
+              "label": "Ein Punkt insgesamt"
+            },
+            {
+              "label": "Individuell"
+            }
+          ]
+        },
+        {
+          "label": "Individuelle Bepunktung",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Vorgabewert"
+                }
+              ],
+              "label": "Lege absolute Punkte für einzelne Punktebereiche fest",
+              "description": "Klicke auf den \"Bereich hinzufügen\"-Button, um so viele Bereiche hinzuzufügen, wie du brauchst. Beispiel: 0-20% 1, 21-91% 2, 91-100% 3",
+              "entity": "range",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Punktebereich"
+                  },
+                  {
+                    "label": "Punkte für jeweiligen Punktebereich"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "\"Wiederholen\"-Button anzeigen",
+          "description": "Diese Option betrifft das Wiederholen nach Abschluss aller Runden, nicht jede einzelne Runde."
+        },
+        {
+          "label": "\"Lösung zeigen\"-Button anzeigen",
+          "description": "Diese Option betrifft das Anzeigen der Lösung nach Abschluss aller Runden, nicht jede einzelne Runde."
+        }
+      ]
+    },
+    {
+      "label": "Bezeichnungen und Beschriftungen",
+      "fields": [
+        {
+          "label": "Beschriftung des \"Überprüfen\"-Buttons",
+          "default": "Überprüfen"
+        },
+        {
+          "label": "Beschriftung des \"Absenden\"-Buttons",
+          "default": "Absenden"
+        },
+        {
+          "label": "Beschriftung des \"Wiederholen\"-Buttons",
+          "default": "Wiederholen"
+        },
+        {
+          "label": "Beschriftung des \"Lösung anzeigen\"-Buttons",
+          "default": "Lösung anzeigen"
+        },
+        {
+          "label": "Beschriftung der Rundenanzeige",
+          "description": "@current ist ein Platzhalter und wird durch den entsprechenden Wert ersetzt.",
+          "default": "Runde @current"
+        }
+      ]
+    },
+    {
+      "label": "Vorlesewerkzeug (Barrierefreiheit)",
+      "fields": [
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für den \"Überprüfen\"-Button",
+          "default": "Überprüfe die Eingaben. Die Antworten werden als richtig, falsch oder unbeantwortet markiert."
+        },
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für den \"Lösung anzeigen\"-Button",
+          "default": "Zeige die Lösung. Das Kreuzworträtsel wird mit der richtigen Lösung gefüllt."
+        },
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für den \"Wiederholen\"-Button",
+          "default": "Wiederhole die Aufgabe. Setze alle Eingaben zurück und fange von vorne an."
+        },
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für den Hinweis auf die \"Ergebnis\"-Seite",
+          "default": "Ergebnisse"
+        },
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für die \"Punkte\"",
+          "description": "@score wird durch die erreichten Punkte ersetzt. @total wird durch die maximal mögliche Punktzahl ersetzt.",
+          "default": "Du hast @score von @total Punkten erreicht."
+        },
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für den \"Vorherige Runde\"-Button",
+          "default": "Vorherige Runde"
+        },
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für den \"Vorherige Runde\"-Button wenn nicht verfügbar",
+          "default": "Vorherige Runde nicht verfügbar"
+        },
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für den \"Nächste Runde\"-Button",
+          "default": "Nächste Runde"
+        },
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für den \"Nächste Runde\"-Button wenn nicht verfügbar",
+          "default": "Nächste Runde nicht verfügbar"
+        },
+        {
+          "label": "Vorlesewerkzeug-Beschreibung für den \"Beenden\"-Button",
+          "default": "Beenden"
+        }
+      ]
+    }
+  ]
+}
