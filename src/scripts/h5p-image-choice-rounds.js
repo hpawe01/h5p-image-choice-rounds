@@ -56,7 +56,7 @@ export default class ImageChoiceRounds extends H5P.Question {
         previousRound: 'Previous round',
         previousRoundDisabled: 'Previous round not available',
         nextRound: 'Next round',
-        nextRoundDisabled: 'Next round not available'        
+        nextRoundDisabled: 'Next round not available'
       }
     }, params);
 
@@ -68,6 +68,8 @@ export default class ImageChoiceRounds extends H5P.Question {
 
     // this.previousState now holds the saved content state of the previous session
     this.previousState = this.extras.previousState || {};
+
+    console.log(this.previousState);
 
     this.viewState = this.previousState.viewState || 'task';
 
@@ -493,17 +495,8 @@ export default class ImageChoiceRounds extends H5P.Question {
     const definition = {};
     definition.name = {'en-US': this.getTitle()};
     definition.description = {'en-US': this.getDescription()};
-
-    // TODO: Set IRI as required for your verb, cmp. http://xapi.vocab.pub/verbs/#
     definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
-
-    // TODO: Set as required, cmp. https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#interaction-types
     definition.interactionType = 'other';
-
-    /*
-     * TODO: Add other object properties as required, e.g. definition.correctResponsesPattern
-     * cmp. https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#244-object
-     */
 
     return definition;
   }

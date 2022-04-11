@@ -31,7 +31,7 @@ export default class ImageChoiceRoundsContent {
         screenImage: this.params.endscreen.endScreenImage,
         screenText: this.params.endscreen.endScreenOutro,
       },
-      {}, // TODO: callbacks
+      {},
       this.params.contentId
     );
     this.params.bundles.push({
@@ -46,9 +46,6 @@ export default class ImageChoiceRoundsContent {
     pages.classList.add('h5p-image-choice-rounds-pages');
 
     for (let i in this.params.bundles) {
-      // Initialize possible progression TODO: previous State
-      this.params.bundles[i].progression = { left: false, right: false };
-
       if (this.params.bundles[i].instance) {
         this.params.bundles[i].instance.on('xAPI', (event) => {
           if (event.getVerb() === 'answered') {
@@ -309,17 +306,7 @@ export default class ImageChoiceRoundsContent {
     for (let i in this.params.bundles) {
       if (this.params.bundles[i].instance) {
         const instance = this.params.bundles[i].instance;
-
-        instance.content.disableSelectables();
-        const score = instance.getScore();
-        const maxScore = instance.getMaxScore();
-        const textScore = H5P.Question.determineOverallFeedback(
-          instance.params.overallFeedback,
-          score / maxScore
-        );
-        instance.setFeedback(textScore, score, maxScore, instance.params.l10n.result);
-        instance.hideButton('check-answer');
-        instance.content.showSelectedSolutions();
+        instance.showPreviousResult();
       }
 
       this.params.bundles[i].progression = { left: true, right: true };

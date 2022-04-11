@@ -8,6 +8,7 @@ export default class ImageChoiceRoundsPool {
    */
   constructor(params = {}, parent) {
     this.params = params;
+    this.parent = parent;
 
     // Override content's default parameters
     const behaviour = this.params.instanceParams.params.behaviour;
@@ -149,6 +150,15 @@ export default class ImageChoiceRoundsPool {
       }
     );
 
+    // Add resize listeners
+    if (parent) {
+      // Resize parent when children resize
+      this.bubbleUp(instance, 'resize', parent);
+
+      // Resize children to fit inside parent
+      this.bubbleDown(parent, 'resize', [instance]);
+    }
+
     // Override original getScore functions to support negative values
     instance.getScore = () => {
       const negativeIsAllowed = this.params.negativeIsAllowed;
@@ -159,18 +169,48 @@ export default class ImageChoiceRoundsPool {
     };
 
     /*
-     * Official MultiMediaChoice doesn't support resume (yet).
-     * Workaround to recreate it only if not already done by
-     * later version of MultiMediaChoice. Obsolete once MultiMediaChoice
-     * supports resume itself.
+     * Official MultiMediaChoice doesn't support recreating the view state.
+     * Add custom function to recreate 'results'.
      */
-    if (
-      options?.previousState?.instance?.answers &&
-      instance.content.options.every(option => !option.isSelected())
-    ) {
-      options.previousState.instance.answers.forEach(answer => {
-        instance.content.toggleSelected(answer);
-      });
+    instance.showPreviousResult = () => {
+      instance.content.disableSelectables();
+      const score = instance.getScore();
+      const maxScore = instance.getMaxScore();
+      const textScore = H5P.Question.determineOverallFeedback(
+        instance.params.overallFeedback,
+        score / maxScore
+      );
+      instance.setFeedback(textScore, score, maxScore, instance.params.l10n.result);
+      instance.hideButton('check-answer');
+      instance.content.showSelectedSolutions();
+    };
+
+    /*
+     * Official MultiMediaChoice doesn't support recreating the view state.
+     * Not perfect workaround as a polyfill that pulls information from
+     * DOM and global view state.
+     */
+    if (typeof instance.getCurrentViewState !== 'function') {
+      instance.getCurrentViewState = () => {
+        const container = instance.content.content.parentNode.parentNode;
+
+        if (container.querySelector('.h5p-question-check-answer')) {
+          return 'task';
+        }
+        else if (this.params.enableSolutionsButton) {
+          return (
+            container.querySelector('.h5p-question-show-solution') ||
+            instance.getScore() === instance.getMaxScore()
+          ) ?
+            'results' :
+            'solutions';
+        }
+        else {
+          return (this.parent.viewState !== 'solutions') ?
+            'results' :
+            'solutions';
+        }
+      };
     }
 
     /*
@@ -189,21 +229,39 @@ export default class ImageChoiceRoundsPool {
       };
     }
 
-    // Add resize listeners
-    if (parent) {
-      // Resize parent when children resize
-      this.bubbleUp(instance, 'resize', parent);
-
-      // Resize children to fit inside parent
-      this.bubbleDown(parent, 'resize', [instance]);
+    /*
+     * Official MultiMediaChoice doesn't support resume (yet).
+     * Workaround to recreate it only if not already done by
+     * later version of MultiMediaChoice. Obsolete once MultiMediaChoice
+     * supports resume itself.
+     */
+    if (
+      options?.previousState?.instance?.answers &&
+      instance.content.options.every(option => !option.isSelected())
+    ) {
+      options.previousState.instance.answers.forEach(answer => {
+        instance.content.toggleSelected(answer);
+      });
     }
 
-    // TODO: Investigate why 'resize' does not fire on 'check'
+    if (options?.previousState.viewState === 'results') {
+      instance.showPreviousResult();
+      if (this.params.enableSolutionsButton) {
+        instance.showButton('show-solution');
+      }
+    }
+    else if (options?.previousState.viewState === 'solutions') {
+      instance.showPreviousResult();
+      instance.showSolutions();
+    }
+
+    const progression = options?.previousState.progression || { left: false, right: false };
 
     return {
       element: instanceWrapper,
       instance: instance,
-      overrideOptions: overrideOptions
+      overrideOptions: overrideOptions,
+      progression: progression
     };
   }
 
@@ -314,10 +372,15 @@ export default class ImageChoiceRoundsPool {
    */
   getCurrentState() {
     const states = [];
-    for (let bundle in this.instanceBundles) {
+
+    for (let id in this.instanceBundles) {
+      const bundle = this.instanceBundles[id];
+
       states.push({
-        instance: this.instanceBundles[bundle].instance.getCurrentState(),
-        overrideOptions: this.instanceBundles[bundle].overrideOptions
+        instance: bundle.instance.getCurrentState(),
+        overrideOptions: bundle.overrideOptions,
+        progression: bundle.progression,
+        viewState: bundle.instance.getCurrentViewState()
       });
     }
 
