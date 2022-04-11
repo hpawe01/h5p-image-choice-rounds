@@ -4,6 +4,7 @@
     ["@babel/plugin-transform-classes", {
       "loose": true
     }],
-    ["@babel/plugin-transform-destructuring"]
+    ["@babel/plugin-transform-destructuring"],
+    ["@babel/plugin-proposal-optional-chaining"]
   ]
 }

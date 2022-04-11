@@ -21,6 +21,7 @@
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.8",
+    "@babel/plugin-proposal-optional-chaining": "^7.16.7",
     "@babel/plugin-transform-destructuring": "^7.17.7",
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.4",
