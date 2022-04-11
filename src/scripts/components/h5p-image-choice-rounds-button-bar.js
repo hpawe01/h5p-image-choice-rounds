@@ -85,6 +85,21 @@ export default class ImageChoiceRoundsButtonBar {
   }
 
   /**
+   * Set button attributes.
+   * @param {string} id Button id.
+   * @param {object} attributes HTML attributes to set.
+   */
+  setButtonAttributes(id = '', attributes = {}) {
+    if (!this.buttons[id]) {
+      return; // Button not available
+    }
+
+    for (let attribute in attributes) {
+      this.buttons[id].setAttribute(attribute, attributes[attribute]);
+    }
+  }
+
+  /**
    * Enable button.
    * @param {string} id Button id.
    */
@@ -154,5 +169,17 @@ export default class ImageChoiceRoundsButtonBar {
     }
 
     this.buttons[id].cloak();
+  }
+
+  /**
+   * Focus a button.
+   * @param {string} id Button id.
+   */
+  focus(id = '') {
+    if (!this.buttons[id] || this.buttons[id].isCloaked()) {
+      return; // Button not available
+    }
+
+    this.buttons[id].focus();
   }
 }

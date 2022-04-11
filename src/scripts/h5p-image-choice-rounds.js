@@ -42,12 +42,16 @@ export default class ImageChoiceRounds extends H5P.Question {
         checkAnswer: 'Check',
         submitAnswer: 'Submit',
         tryAgain: 'Retry',
-        showSolution: 'Show solution'
+        showSolution: 'Show solution',
+        progressAnnouncer: 'Round @current'
       },
       a11y: {
         check: 'Check the answers. The responses will be marked as correct, incorrect, or unanswered.',
         showSolution: 'Show the solution. The task will be marked with its correct solution.',
-        retry: 'Retry the task. Reset all responses and start the task over again.'
+        retry: 'Retry the task. Reset all responses and start the task over again.',
+        finish: 'Finish',
+        results: 'Results',
+        yourResult: 'You got @score out of @total points'
       }
     }, params);
 
@@ -189,6 +193,8 @@ export default class ImageChoiceRounds extends H5P.Question {
         this.trigger(this.getXAPICompletedEvent());
       }
 
+      this.read(this.params.a11y.results);
+
       // Endscreen is showing
       this.updateEndscreen();
 
@@ -201,6 +207,13 @@ export default class ImageChoiceRounds extends H5P.Question {
       if (this.params.behaviour.enableRetry) {
         this.showButton('try-again');
       }
+
+      setTimeout(() => {
+        this.focusButton();
+      }, 0); // H5P.Question must display button first
+    }
+    else {
+      this.read(this.params.l10n.progressAnnouncer.replace('@current', currentIndex + 1));
     }
   }
 
@@ -210,12 +223,17 @@ export default class ImageChoiceRounds extends H5P.Question {
   updateEndscreen() {
     const score = this.getScore();
     const maxScore = this.getMaxScore();
-    const text = H5P.Question.determineOverallFeedback(
+
+    const textScore = H5P.Question.determineOverallFeedback(
       this.params.endscreen.overallFeedback,
       score / maxScore
     );
 
-    this.setFeedback(text, score, maxScore, text);
+    const ariaScore = this.params.a11y.yourResult
+      .replace('@score', ':num')
+      .replace('@total', ':total');
+
+    this.setFeedback(textScore, score, maxScore, ariaScore);
   }
 
   /**

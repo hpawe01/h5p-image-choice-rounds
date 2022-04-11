@@ -206,6 +206,15 @@ export default class ImageChoiceRoundsButton {
   }
 
   /**
+   * Set attribute.
+   * @param {string} attribute Attribute key.
+   * @param {string} value Attribute value.
+   */
+  setAttribute(attribute, value) {
+    this.button.setAttribute(attribute, value);
+  }
+
+  /**
    * Determine whether button is active.
    * @return {boolean} True, if button is active, else false.
    */
@@ -219,5 +228,13 @@ export default class ImageChoiceRoundsButton {
    */
   isDisabled() {
     return this.disabled;
+  }
+
+  /**
+   * Determine whether button is cloaked.
+   * @return {boolean} True, if button is cloaked, else false.
+   */
+  isCloaked() {
+    return this.button.classList.contains('h5p-image-choice-rounds-button-cloak');
   }
 }

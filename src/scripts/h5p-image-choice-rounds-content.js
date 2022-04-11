@@ -60,6 +60,7 @@ export default class ImageChoiceRoundsContent {
               this.params.bundles[parseInt(i) + 1].progression.left = true;
             }
             this.updateNavigationButtons();
+            this.buttonBar.focus('right');
           }
         });
       }
@@ -100,6 +101,8 @@ export default class ImageChoiceRoundsContent {
     this.handleUpdatePagePositionsEnded();
 
     this.content.appendChild(this.buttonBar.getDOM());
+
+    this.isConstructed = true;
   }
 
   /**
@@ -195,6 +198,7 @@ export default class ImageChoiceRoundsContent {
       this.params.bundles[this.currentPageIndex].progression.left = true;
     }
 
+    // First page
     if (this.currentPageIndex === 0) {
       this.buttonBar.cloakButton('left');
     }
@@ -202,18 +206,20 @@ export default class ImageChoiceRoundsContent {
       this.buttonBar.uncloakButton('left');
     }
 
-    if (this.params.bundles[this.currentPageIndex].progression.left) {
-      this.buttonBar.enableButton('left');
-    }
-    else {
-      this.buttonBar.disableButton('left');
-    }
-
+    // Last page
     if (this.currentPageIndex === this.pages.length - 1) {
       this.buttonBar.cloakButton('right');
     }
     else {
       this.buttonBar.uncloakButton('right');
+    }
+
+    // Progression state
+    if (this.params.bundles[this.currentPageIndex].progression.left) {
+      this.buttonBar.enableButton('left');
+    }
+    else {
+      this.buttonBar.disableButton('left');
     }
 
     if (this.params.bundles[this.currentPageIndex].progression.right) {
@@ -222,8 +228,15 @@ export default class ImageChoiceRoundsContent {
     else {
       this.buttonBar.disableButton('right');
     }
-  }
 
+    // Last exercise
+    if (this.currentPageIndex === this.pages.length - 2) {
+      this.buttonBar.setButtonAttributes('right', {
+        'aria-label': 'Finish',
+        'title': 'Finish'
+      });
+    }
+  }
 
   /**
    * Swipe to page.
@@ -286,6 +299,13 @@ export default class ImageChoiceRoundsContent {
     }
 
     this.isSwiping = false;
+
+    if (this.isConstructed) {
+      const focusElement = this.pages[this.currentPageIndex].querySelector('.h5p-question-content .h5p-multi-media-choice-list-item');
+      if (focusElement) {
+        focusElement.focus();
+      }
+    }
 
     this.callbacks.resize();
   }
