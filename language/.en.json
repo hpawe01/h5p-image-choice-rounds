@@ -166,7 +166,7 @@
         },
         {
           "label": "Message for missing images",
-          "default": "No images were set."
+          "default": "No images were set or the round rules cannot be satisfied."
         }
       ]
     },

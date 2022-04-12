@@ -27,7 +27,7 @@ export default class ImageChoiceRoundsPool {
     this.discarded = [];
 
     // Instantiate instances for rounds
-    this.pages = {};
+    this.pages = [];
     for (let round = 0; round < this.params.numberRounds; round++) {
       this.pages[round] = this.buildPage(round, {
         total: this.params.numberImages,
@@ -35,33 +35,31 @@ export default class ImageChoiceRoundsPool {
         previousState: this.params.previousState ? this.params.previousState[round] : {}
       }, parent);
     }
+
+    // Filter out incomplete pages
+    this.pages = this.pages.filter(page => !!page);
   }
 
   /**
    * Get random options from pool.
-   * @param {boolean} [correct=false] Preferred image correctness.
+   * @param {boolean} [correct=false] Preferred image correctness, random if not set.
    * @return {object} Random options.
    */
-  getRandomOptions(correct = false) {
+  getRandomOptions(correct) {
     if (!this.pool.length) {
       return null;
     }
 
     // Try to get images of preferred correctness
-    const candidates = this.pool.some(image => image.correct === correct) ?
+    const candidates = (typeof correct === 'boolean') ?
       this.pool.filter(image => image.correct === correct) :
-      this.pool.filter(image => image.correct !== correct);
+      this.pool;
 
-    const randomOptions = candidates[Math.floor(Math.random() * candidates.length)];
+    if (!candidates.length) {
+      return null;
+    }
 
-    // Remove chosen random options from pool
-    const poolIndex = this.pool.findIndex((option) => option === randomOptions);
-    this.discarded.push(randomOptions);
-
-    // Array.splice has side-effects
-    this.pool = [...this.pool.slice(0, poolIndex), ...this.pool.slice(poolIndex + 1)];
-
-    return randomOptions;
+    return candidates[Math.floor(Math.random() * candidates.length)];
   }
 
   /**
@@ -98,24 +96,38 @@ export default class ImageChoiceRoundsPool {
       }
       else {
         for (let i = 0; i < options.total; i++) {
+          let randomOptions;
+
           if (typeof options.correct === 'number') {
-            const randomOptions = this.getRandomOptions(options.correct > 0);
+            randomOptions = this.getRandomOptions(options.correct > 0);
             if (randomOptions) {
               overrideOptions.push(randomOptions);
             }
             options.correct = Math.max(0, options.correct - 1);
           }
           else {
-            const randomOptions = this.getRandomOptions(Math.random() > 0.5);
+            randomOptions = this.getRandomOptions();
             if (randomOptions) {
               overrideOptions.push(randomOptions);
             }
           }
+
+          // Remove chosen random options from pool
+          const poolIndex = this.pool.findIndex((option) => option === randomOptions);
+          this.discarded.push(randomOptions);
+
+          // Array.splice has side-effects
+          this.pool = [...this.pool.slice(0, poolIndex), ...this.pool.slice(poolIndex + 1)];
         }
 
         // Shuffle
         overrideOptions = Util.shuffleArray(overrideOptions);
       }
+    }
+
+    // Filter out incomplete rounds
+    if (overrideOptions.length < 2) {
+      return null;
     }
 
     // Put cards back into pool if playing with replacement

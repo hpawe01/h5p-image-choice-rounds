@@ -44,7 +44,7 @@ export default class ImageChoiceRounds extends H5P.Question {
         tryAgain: 'Retry',
         showSolution: 'Show solution',
         progressAnnouncer: 'Round @current',
-        noImages: 'No images were set.'
+        noImages: 'No images were set or the round rules cannot be satisfied.'
       },
       a11y: {
         check: 'Check the answers. The responses will be marked as correct, incorrect, or unanswered.',
@@ -184,7 +184,7 @@ export default class ImageChoiceRounds extends H5P.Question {
    * Add all the buttons that shall be passed to H5P.Question.
    */
   addButtons() {
-    const isShowingEndScreen = this.content.getCurrentPageIndex() >= Object.keys(this.pool.getPages()).length;
+    const isShowingEndScreen = this.content.getCurrentPageIndex() >= this.pool.getPages().length;
 
     // Show solution button
     this.addButton(
@@ -225,7 +225,7 @@ export default class ImageChoiceRounds extends H5P.Question {
     progressedEvent.data.statement.object.definition.extensions['http://id.tincanapi.com/extension/ending-point'] = currentIndex + 1;
     this.trigger(progressedEvent);
 
-    if (currentIndex < Object.keys(this.pool.getPages()).length) { // Normal page
+    if (currentIndex < this.pool.getPages().length) { // Normal page
       this.read(Dictionary.get('l10n.progressAnnouncer').replace('@current', currentIndex + 1));
     }
     else { // Endscreen

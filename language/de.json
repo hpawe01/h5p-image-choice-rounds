@@ -166,7 +166,7 @@
         },
         {
           "label": "Hinweis auf fehlende Bilder",
-          "default": "Es wurden keine Bilder gesetzt."
+          "default": "Es wurden keine Bilder gesetzt oder die Bedingungen für Runden können nicht erfüllt werden."
         }
       ]
     },

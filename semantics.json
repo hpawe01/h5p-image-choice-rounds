@@ -360,7 +360,7 @@
         "type": "text",
         "label": "Message for missing images",
         "importance": "low",
-        "default": "No images were set."
+        "default": "No images were set or the round rules cannot be satisfied."
       }
     ]
   },
