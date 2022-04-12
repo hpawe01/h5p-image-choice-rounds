@@ -55,6 +55,10 @@ export default class ImageChoiceRoundsScreen {
       this.screen.appendChild(introduction);
     }
 
+    if (!this.params?.screenImage?.params?.file && !this.params.screenText) {
+      this.screen.classList.add('extra-padding-top');
+    }
+
     this.placeholder = document.createElement('div');
     this.placeholder.classList.add(`${this.baseClassName}-placeholder-container`);
     this.placeholder.classList.add(`${this.baseClassName}-display-none`);

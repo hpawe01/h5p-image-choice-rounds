@@ -6,6 +6,10 @@
   height: 100%;
   justify-content: center;
 
+  &.extra-padding-top {
+    padding-top: 1em;
+  }
+
   .h5p-image-choice-rounds-screen-image-wrapper {
     align-items: center;
     display: flex;
