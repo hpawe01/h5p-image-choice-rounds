@@ -83,12 +83,14 @@ export default class ImageChoiceRounds extends H5P.Question {
       this.params.roundOptions.numberImages,
       this.params.instanceParams.params.options.length
     );
-    const numberImagesCorrect = Math.min(
-      this.params.roundOptions.numberImagesCorrect || 0, // 0 means random
-      this.params.instanceParams.params.options
-        .reduce((total, option) => total + (option.correct ? 1 : 0), 0),
-      numberImages
-    );
+    const numberImagesCorrect = (typeof this.params.roundOptions.numberImagesCorrect === 'number') ?
+      Math.min(
+        this.params.roundOptions.numberImagesCorrect,
+        this.params.instanceParams.params.options
+          .reduce((total, option) => total + (option.correct ? 1 : 0), 0),
+        numberImages
+      ) :
+      null; // Random choosing
 
     // Generate pool of pages
     this.pool = new ImageChoiceRoundsPool({
