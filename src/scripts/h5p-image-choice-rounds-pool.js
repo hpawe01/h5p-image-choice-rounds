@@ -126,7 +126,7 @@ export default class ImageChoiceRoundsPool {
     }
 
     // Filter out incomplete rounds
-    if (overrideOptions.length < 2) {
+    if (overrideOptions.length !== options.total) {
       return null;
     }
 
