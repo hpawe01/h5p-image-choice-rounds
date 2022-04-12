@@ -7,10 +7,14 @@ import Util from './h5p-image-choice-rounds-util';
 export default class ImageChoiceRoundsContent {
   /**
    * @constructor
+   * @param {object} params Paremeters.
+   * @param {object} callbacks Callbacks.
+   * @param {function} callbacks.progress Signal progression to different page.
+   * @param {function} callbacks.resize Signal need to resize.
    */
   constructor(params = {}, callbacks = {}) {
     this.params = Util.extend({
-      bundles: [],
+      pages: [],
       endscreen: {},
       currentPage: 0
     }, params);
@@ -22,7 +26,7 @@ export default class ImageChoiceRoundsContent {
 
     this.handleUpdatePagePositionsEnded = this.handleUpdatePagePositionsEnded.bind(this);
 
-    this.pages = [];
+    this.pageDOMs = [];
     this.currentPageIndex = this.params.currentPage;
 
     this.endscreen = new ImageChoiceRoundsScreenEnd(
@@ -34,7 +38,7 @@ export default class ImageChoiceRoundsContent {
       {},
       this.params.contentId
     );
-    this.params.bundles.push({
+    this.params.pages.push({
       element: this.endscreen.getDOM(),
       progression: { left: false, right: false }
     });
@@ -46,13 +50,14 @@ export default class ImageChoiceRoundsContent {
     const pages = document.createElement('div');
     pages.classList.add('h5p-image-choice-rounds-pages');
 
-    for (let i in this.params.bundles) {
-      if (this.params.bundles[i].instance) {
-        this.params.bundles[i].instance.on('xAPI', (event) => {
+    // Build DOMs of pages
+    for (let i in this.params.pages) {
+      if (this.params.pages[i].instance) {
+        this.params.pages[i].instance.on('xAPI', (event) => {
           if (event.getVerb() === 'answered') {
-            this.params.bundles[i].progression.right = true;
-            if (parseInt(i) < this.params.bundles.length - 1) {
-              this.params.bundles[parseInt(i) + 1].progression.left = true;
+            this.params.pages[i].progression.right = true;
+            if (parseInt(i) < this.params.pages.length - 1) {
+              this.params.pages[parseInt(i) + 1].progression.left = true;
             }
             this.updateNavigationButtons();
             this.buttonBar.focus('right');
@@ -62,11 +67,12 @@ export default class ImageChoiceRoundsContent {
 
       const page = document.createElement('div');
       page.classList.add('h5p-image-choice-rounds-page');
-      page.appendChild(this.params.bundles[i].element);
+      page.appendChild(this.params.pages[i].element);
 
-      this.pages.push(page);
+      this.pageDOMs.push(page);
     }
 
+    // Build button bar for navigation
     this.buttonBar = new ImageChoiceRoundsButtonBar(
       {},
       {
@@ -79,13 +85,13 @@ export default class ImageChoiceRoundsContent {
       }
     );
 
-    this.pages.forEach(page => {
+    this.pageDOMs.forEach(page => {
       pages.appendChild(page);
     });
     this.content.appendChild(pages);
 
     this.updatePage();
-    // No transition on first display
+    // No transition on first display, so trigger here
     this.handleUpdatePagePositionsEnded();
 
     this.content.appendChild(this.buttonBar.getDOM());
@@ -122,6 +128,7 @@ export default class ImageChoiceRoundsContent {
    * Update page positions.
    */
   updatePagePositions(params = {}) {
+    // Determine pageDOMs visible when sliding for having proper height
     let visiblePages = [this.currentPageIndex];
     if (typeof params.from === 'number' && typeof params.to === 'number') {
       if (params.from > params.to) {
@@ -130,18 +137,19 @@ export default class ImageChoiceRoundsContent {
         params.to = tmp;
       }
 
-      visiblePages = [...Array(params.to - params.from + 1).keys()].map(x => x + params.from);
+      visiblePages = [...Array(params.to - params.from + 1).keys()]
+        .map(x => x + params.from);
     }
 
-    this.pages.forEach((page, index) => {
-      page.classList.toggle('display-none', visiblePages.indexOf(index) === -1);
+    this.pageDOMs.forEach((page, index) => {
+      page.classList.toggle('display-none', !visiblePages.includes(index));
     });
 
     this.callbacks.resize();
 
     // Timeout to let browser display pages in off before transitioning
     setTimeout(() => {
-      this.pages.forEach((page, index) => {
+      this.pageDOMs.forEach((page, index) => {
         page.classList.remove('past');
         page.classList.remove('present');
         page.classList.remove('future');
@@ -171,7 +179,7 @@ export default class ImageChoiceRoundsContent {
    */
   updateRoundAnnouncer() {
     let text = '';
-    if (this.params.bundles[this.currentPageIndex].instance) {
+    if (this.params.pages[this.currentPageIndex].instance) {
       text = Dictionary.get('l10n.progressAnnouncer').replace('@current', this.currentPageIndex + 1);
     } // Otherwise end screen
     this.buttonBar.setRoundAnnouncerText(text);
@@ -183,7 +191,7 @@ export default class ImageChoiceRoundsContent {
   updateNavigationButtons() {
     // Always allow to go back
     if (this.currentPageIndex > 0) {
-      this.params.bundles[this.currentPageIndex].progression.left = true;
+      this.params.pages[this.currentPageIndex].progression.left = true;
     }
 
     // First page
@@ -191,26 +199,26 @@ export default class ImageChoiceRoundsContent {
       this.buttonBar.cloakButton('left');
     }
     else {
-      this.buttonBar.uncloakButton('left');
+      this.buttonBar.decloakButton('left');
     }
 
     // Last page
-    if (this.currentPageIndex === this.pages.length - 1) {
+    if (this.currentPageIndex === this.pageDOMs.length - 1) {
       this.buttonBar.cloakButton('right');
     }
     else {
-      this.buttonBar.uncloakButton('right');
+      this.buttonBar.decloakButton('right');
     }
 
     // Progression state
-    if (this.params.bundles[this.currentPageIndex].progression.left) {
+    if (this.params.pages[this.currentPageIndex].progression.left) {
       this.buttonBar.enableButton('left');
     }
     else {
       this.buttonBar.disableButton('left');
     }
 
-    if (this.params.bundles[this.currentPageIndex].progression.right) {
+    if (this.params.pages[this.currentPageIndex].progression.right) {
       this.buttonBar.enableButton('right');
     }
     else {
@@ -218,8 +226,8 @@ export default class ImageChoiceRoundsContent {
     }
 
     if (
-      this.currentPageIndex === this.pages.length - 2 && // Last exercise
-      this.params.bundles[this.currentPageIndex].progression.right
+      this.currentPageIndex === this.pageDOMs.length - 2 && // Last exercise
+      this.params.pages[this.currentPageIndex].progression.right
     ) {
       this.buttonBar.setButtonAttributes('right', {
         'aria-label': Dictionary.get('a11y.finish'),
@@ -233,7 +241,7 @@ export default class ImageChoiceRoundsContent {
    * @param {number} page Page number to swipe to.
    */
   swipeTo(page = -1) {
-    if (this.isSwiping || page < 0 || page > this.pages.length - 1) {
+    if (this.isSwiping || page < 0 || page > this.pageDOMs.length - 1) {
       return; // Swiping or out of bounds
     }
 
@@ -241,10 +249,9 @@ export default class ImageChoiceRoundsContent {
 
     const from = this.currentPageIndex;
     this.currentPageIndex = page;
+    this.updatePage({ from: from, to: page });
 
-    this.updatePage({ from: from, to: page});
-
-    this.callbacks.progress(this.currentPageIndex);
+    this.callbacks.progress();
   }
 
   /**
@@ -262,7 +269,7 @@ export default class ImageChoiceRoundsContent {
    * Swipe content right.
    */
   swipeRight() {
-    if (this.isSwiping || this.currentPageIndex === this.pages.length - 1) {
+    if (this.isSwiping || this.currentPageIndex === this.pageDOMs.length - 1) {
       return; // Swiping or already at outer right
     }
 
@@ -273,14 +280,18 @@ export default class ImageChoiceRoundsContent {
    * Handle updating page positions ended.
    */
   handleUpdatePagePositionsEnded() {
-    this.pages[this.currentPageIndex].removeEventListener('transitionend', this.handleUpdatePagePositionsEnded);
-    this.pages.forEach((page, index) => {
+    this.pageDOMs[this.currentPageIndex]
+      .removeEventListener('transitionend', this.handleUpdatePagePositionsEnded);
+
+    // Hid all but current pages
+    this.pageDOMs.forEach((page, index) => {
       if (index !== this.currentPageIndex) {
         page.classList.add('display-none');
       }
     });
 
-    const currentInstance = this.params.bundles[this.currentPageIndex].instance;
+    // Set round start time when it gets visible
+    const currentInstance = this.params.pages[this.currentPageIndex].instance;
     if (
       typeof currentInstance?.setActivityStarted === 'function' &&
       !currentInstance.activityStartTime
@@ -290,8 +301,11 @@ export default class ImageChoiceRoundsContent {
 
     this.isSwiping = false;
 
+    // Focus on first item
     if (this.isConstructed) {
-      const focusElement = this.pages[this.currentPageIndex].querySelector('.h5p-question-content .h5p-multi-media-choice-list-item');
+      const focusElement = this.pageDOMs[this.currentPageIndex]
+        .querySelector('.h5p-question-content .h5p-multi-media-choice-list-item');
+
       if (focusElement) {
         focusElement.focus();
       }
@@ -304,13 +318,14 @@ export default class ImageChoiceRoundsContent {
    * Show results of MultiMediaChoice instance.
    */
   showResults() {
-    for (let i in this.params.bundles) {
-      if (this.params.bundles[i].instance) {
-        const instance = this.params.bundles[i].instance;
-        instance.showPreviousResult();
+    for (let i in this.params.pages) {
+      const page = this.params.pages[i];
+
+      if (page.instance) {
+        page.instance.showPreviousResult();
       }
 
-      this.params.bundles[i].progression = { left: true, right: true };
+      page.progression = { left: true, right: true };
     }
   }
 
@@ -318,28 +333,30 @@ export default class ImageChoiceRoundsContent {
    * Show solutions.
    */
   showSolutions() {
-    for (let i in this.params.bundles) {
-      if (this.params.bundles[i].instance) {
-        this.params.bundles[i].instance.showSolutions();
+    for (let i in this.params.pages) {
+      const page = this.params.pages[i];
+
+      if (page.instance) {
+        page.instance.showSolutions();
       }
 
-      this.params.bundles[i].progression = { left: true, right: true };
+      page.progression = { left: true, right: true };
     }
-
-    this.swipeTo(0);
   }
 
   /**
    * Reset task.
    */
   resetTask() {
-    for (let i in this.params.bundles) {
-      if (this.params.bundles[i].instance) {
-        delete this.params.bundles[i].instance.activityStartTime;
-        this.params.bundles[i].instance.resetTask();
+    for (let i in this.params.pages) {
+      const page = this.params.pages[i];
+
+      if (page.instance) {
+        delete page.instance.activityStartTime;
+        page.instance.resetTask();
       }
 
-      this.params.bundles[i].progression = { left: false, right: false };
+      page.progression = { left: false, right: false };
     }
 
     this.swipeTo(0);
@@ -350,7 +367,7 @@ export default class ImageChoiceRoundsContent {
    * @return {object[]} xAPIData.
    */
   getXAPIData() {
-    return this.params.bundles
+    return this.params.pages
       .map(bundle => {
         if (typeof bundle?.instance?.getXAPIData !== 'function') {
           return;

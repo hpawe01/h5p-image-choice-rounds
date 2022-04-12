@@ -5,6 +5,9 @@ export default class ImageChoiceRoundsPool {
 
   /**
    * @constructor
+   * @param {object} params Parameters.
+   * @param {object} callbacks Callbacks.
+   * @param {function} callbacks.getViewState Get global view state.
    */
   constructor(params = {}, parent) {
     this.params = params;
@@ -24,9 +27,9 @@ export default class ImageChoiceRoundsPool {
     this.discarded = [];
 
     // Instantiate instances for rounds
-    this.instanceBundles = {};
+    this.pages = {};
     for (let round = 0; round < this.params.numberRounds; round++) {
-      this.instanceBundles[round] = this.buildInstanceBundle(round, {
+      this.pages[round] = this.buildPage(round, {
         total: this.params.numberImages,
         correct: this.params.numberImagesCorrect,
         previousState: this.params.previousState ? this.params.previousState[round] : {}
@@ -52,13 +55,11 @@ export default class ImageChoiceRoundsPool {
     const randomOptions = candidates[Math.floor(Math.random() * candidates.length)];
 
     // Remove chosen random options from pool
-    // if (this.params.modeSampling === 'withoutReplacement') {
     const poolIndex = this.pool.findIndex((option) => option === randomOptions);
     this.discarded.push(randomOptions);
 
     // Array.splice has side-effects
     this.pool = [...this.pool.slice(0, poolIndex), ...this.pool.slice(poolIndex + 1)];
-    // }
 
     return randomOptions;
   }
@@ -72,11 +73,11 @@ export default class ImageChoiceRoundsPool {
   }
 
   /**
-   * Get instance bundles.
-   * @return {object} Instance bundles.
+   * Get pages.
+   * @return {object} Pages.
    */
-  getInstanceBundles() {
-    return this.instanceBundles;
+  getPages() {
+    return this.pages;
   }
 
   /**
@@ -85,9 +86,9 @@ export default class ImageChoiceRoundsPool {
    * @param {object} [options={}] Options.
    * @param {H5P.ContentType} parent Parent element to resize.
    */
-  buildInstanceBundle(id, options = {}, parent = null) {
-    if (this.instanceBundles[id]) {
-      return this.instanceBundles[id];
+  buildPage(id, options = {}, parent = null) {
+    if (this.pages[id]) {
+      return this.pages[id];
     }
 
     let overrideOptions = [];
@@ -206,7 +207,7 @@ export default class ImageChoiceRoundsPool {
             'solutions';
         }
         else {
-          return (this.parent.viewState !== 'solutions') ?
+          return (this.parent.getViewState() !== 'solutions') ?
             'results' :
             'solutions';
         }
@@ -304,13 +305,19 @@ export default class ImageChoiceRoundsPool {
 
   /**
    * Custom get score function that allows negative values.
+   * @param {object} instance ImageChoice.
+   * @param {boolean} [negativeIsAllowed=false] If true, instance can return negative score.
+   * @return {number} Score.
    */
-  customGetScore(main, negativeIsAllowed = false) {
-    return main.content.getScore(negativeIsAllowed);
+  customGetScore(instance, negativeIsAllowed = false) {
+    return instance.content.getScore(negativeIsAllowed);
   }
 
   /**
    * Custom get score function that allows negative values.
+   * @param {object} content ImageChoice content.
+   * @param {boolean} [negativeIsAllowed=false] If true, instance can return negative score.
+   * @return {number} Score.
    */
   customContentGetScore(content, negativeIsAllowed = false) {
     // One point if no correct options and no selected options
@@ -373,8 +380,8 @@ export default class ImageChoiceRoundsPool {
   getCurrentState() {
     const states = [];
 
-    for (let id in this.instanceBundles) {
-      const bundle = this.instanceBundles[id];
+    for (let id in this.pages) {
+      const bundle = this.pages[id];
 
       states.push({
         instance: bundle.instance.getCurrentState(),

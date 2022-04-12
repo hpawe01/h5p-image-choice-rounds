@@ -8,6 +8,7 @@ export default class ImageChoiceRoundsScreen {
    *
    * @param {object} params Parameter from editor.
    * @param {object} [callbacks] Callbacks.
+   * @param {object} [callbacks.resize] Inform about required resize.
    */
   constructor(params = {}, callbacks = {}, contentId) {
     this.params = Util.extend({}, params);

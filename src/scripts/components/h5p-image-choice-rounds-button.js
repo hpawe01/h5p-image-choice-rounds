@@ -6,7 +6,6 @@ import Util from './../h5p-image-choice-rounds-util';
 export default class ImageChoiceRoundsButton {
   /**
    * @constructor
-   *
    * @param {object} params Parameter from editor.
    * @param {object} [callbacks] Callbacks.
    */
@@ -104,9 +103,9 @@ export default class ImageChoiceRoundsButton {
   }
 
   /**
-   * Uncloak button.
+   * Decloak button.
    */
-  uncloak() {
+  decloak() {
     this.button.classList.remove('h5p-image-choice-rounds-button-cloak');
   }
 

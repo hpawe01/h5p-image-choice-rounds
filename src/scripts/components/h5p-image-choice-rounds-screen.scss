@@ -5,51 +5,51 @@
   flex-direction: column;
   height: 100%;
   justify-content: center;
-}
 
-.h5p-image-choice-rounds-screen-image-wrapper {
-  align-items: center;
-  display: flex;
-  height: 15em;
-  justify-content: center;
-  margin: 3em 0;
-  position: relative;
+  .h5p-image-choice-rounds-screen-image-wrapper {
+    align-items: center;
+    display: flex;
+    height: 15em;
+    justify-content: center;
+    margin: 3em 0;
+    position: relative;
 
-  &.small-margin-bottom {
-    margin-bottom: 1.5em;
+    &.small-margin-bottom {
+      margin-bottom: 1.5em;
+    }
+
+    .h5p-image-choice-rounds-screen-image {
+      box-shadow: 0.5em 0.25em 3em 0 $color-shadow-dark;
+      -moz-box-shadow: 0.5em 0.25em 3em 0 $color-shadow-dark;
+      -webkit-box-shadow: 0.5em 0.25em 3em 0 $color-shadow-dark;
+      position: absolute;
+      left: 50%;
+      max-height: 15em;
+      max-width: 85%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .h5p-image-choice-rounds-screen-image-bar {
+      background-color: $color-primary-5;
+      background-size: cover;
+      height: 70%;
+      width: 100%;
+    }
   }
-}
 
-.h5p-image-choice-rounds-screen-image {
-  box-shadow: 0.5em 0.25em 3em 0 $color-shadow-dark;
-  -moz-box-shadow: 0.5em 0.25em 3em 0 $color-shadow-dark;
-  -webkit-box-shadow: 0.5em 0.25em 3em 0 $color-shadow-dark;
-  position: absolute;
-  left: 50%;
-  max-height: 15em;
-  max-width: 85%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
+  .h5p-image-choice-rounds-screen-text {
+    align-self: center;
+    margin-bottom: 1em;
+    width: 85%;
+  }
 
-.h5p-image-choice-rounds-screen-image-bar {
-  background-color: $color-primary-5;
-  background-size: cover;
-  height: 70%;
-  width: 100%;
-}
+  .h5p-image-choice-rounds-screen-placeholder-container {
+    align-self: center;
+    width: 85%;
 
-.h5p-image-choice-rounds-screen-text {
-  align-self: center;
-  margin-bottom: 1em;
-  width: 85%;
-}
-
-.h5p-image-choice-rounds-screen-placeholder-container {
-  align-self: center;
-  width: 85%;
-
-  &.h5p-image-choice-rounds-screen-display-none {
-    display: none;
+    &.h5p-image-choice-rounds-screen-display-none {
+      display: none;
+    }
   }
 }

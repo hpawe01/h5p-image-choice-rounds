@@ -5,8 +5,13 @@ import Util from './../h5p-image-choice-rounds-util';
 
 /** Class representing the button bar */
 export default class ImageChoiceRoundsButtonBar {
+
   /**
    * @constructor
+   * @param {object} [params={}] Parameters.
+   * @param {object} [callbacks={}] Callbacks.
+   * @param {function} [callbacks.onClickButtonLeft] Callback for left button.
+   * @param {function} [callbacks.onClickButtonRight] Callback for right button.
    */
   constructor(params = {}, callbacks = {}) {
     this.params = Util.extend({}, params);
@@ -18,6 +23,7 @@ export default class ImageChoiceRoundsButtonBar {
 
     this.buttons = {};
 
+    // Build DOM
     this.buttonBar = document.createElement('div');
     this.buttonBar.classList.add('h5p-image-choice-rounds-button-bar');
 
@@ -149,15 +155,15 @@ export default class ImageChoiceRoundsButtonBar {
   }
 
   /**
-   * Uncloak button.
+   * Decloak button.
    * @param {string} id Button id.
    */
-  uncloakButton(id = '') {
+  decloakButton(id = '') {
     if (!this.buttons[id]) {
       return; // Button not available
     }
 
-    this.buttons[id].uncloak();
+    this.buttons[id].decloak();
   }
 
   /**

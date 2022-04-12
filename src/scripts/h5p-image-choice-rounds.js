@@ -10,10 +10,9 @@ import Util from './h5p-image-choice-rounds-util';
 export default class ImageChoiceRounds extends H5P.Question {
   /**
    * @constructor
-   *
    * @param {object} params Parameters passed by the editor.
    * @param {number} contentId Content's id.
-   * @param {object} [extras] Saved state, metadata, etc.
+   * @param {object} [extras = {}] Saved state, metadata, etc.
    */
   constructor(params, contentId, extras = {}) {
     super('image-choice-rounds'); // CSS class selector for content's iframe
@@ -70,56 +69,59 @@ export default class ImageChoiceRounds extends H5P.Question {
     // this.previousState now holds the saved content state of the previous session
     this.previousState = this.extras.previousState || {};
 
-    this.viewState = this.previousState.viewState || 'task';
+    // View state to track if user is solving the task or watching results or solutions
+    this.setViewState(this.previousState.viewState || 'task');
 
-    if (this.params.instanceParams?.params?.options?.length) {
-      const numberImages = Math.min(
-        this.params.roundOptions.numberImages,
-        this.params.instanceParams.params.options.length
-      );
-
-      let numberImagesCorrect = Math.min(
-        this.params.roundOptions.numberImagesCorrect || 0,
-        this.params.instanceParams.params.options
-          .reduce((total, option) => total + (option.correct ? 1 : 0), 0)
-      );
-      numberImagesCorrect = Math.min(numberImagesCorrect, numberImages);
-
-      this.pool = new ImageChoiceRoundsPool({
-        contentId: this.contentId,
-        instanceParams: this.params.instanceParams,
-        modeSampling: this.params.roundOptions.modeSampling,
-        numberRounds: this.params.roundOptions.numberRounds,
-        numberImages: numberImages,
-        numberImagesCorrect: numberImagesCorrect,
-        negativeIsAllowed: this.params.roundOptions.negativeIsAllowed,
-        enableSolutionsButton: this.params.roundOptions.enableSolutionsButton,
-        confirmCheckDialog: this.params.roundOptions.confirmCheckDialog,
-        singlePoint: this.params.roundOptions.singlePoint,
-        previousState: this.previousState?.children
-      }, this);
-
-      // Reattach H5P.Question buttons to endscreen
-      H5P.externalDispatcher.on('initialized', () => {
-        const feedback = document.querySelector('.h5p-container > .h5p-question-feedback');
-        if (feedback) {
-          this.content.endscreen.appendToPlaceholder(feedback.parentNode.removeChild(feedback));
-        }
-
-        const scorebar = document.querySelector('.h5p-container > .h5p-question-scorebar');
-        if (feedback) {
-          this.content.endscreen.appendToPlaceholder(scorebar.parentNode.removeChild(scorebar));
-        }
-
-        const buttons = document.querySelector('.h5p-container > .h5p-question-buttons');
-        if (buttons) {
-          this.content.endscreen.appendToPlaceholder(buttons.parentNode.removeChild(buttons));
-        }
-      });
-    }
-    else {
+    // Check whether the author didn't add any images
+    if (!this.params.instanceParams?.params?.options?.length) {
       console.warn('There are no images set for Image Choice');
+      return;
     }
+
+    // Sanitize number of (correct) images to show per round
+    const numberImages = Math.min(
+      this.params.roundOptions.numberImages,
+      this.params.instanceParams.params.options.length
+    );
+    const numberImagesCorrect = Math.min(
+      this.params.roundOptions.numberImagesCorrect || 0, // 0 means random
+      this.params.instanceParams.params.options
+        .reduce((total, option) => total + (option.correct ? 1 : 0), 0),
+      numberImages
+    );
+
+    // Generate pool of pages
+    this.pool = new ImageChoiceRoundsPool({
+      contentId: this.contentId,
+      instanceParams: this.params.instanceParams,
+      modeSampling: this.params.roundOptions.modeSampling,
+      numberRounds: this.params.roundOptions.numberRounds,
+      numberImages: numberImages,
+      numberImagesCorrect: numberImagesCorrect,
+      negativeIsAllowed: this.params.roundOptions.negativeIsAllowed,
+      enableSolutionsButton: this.params.roundOptions.enableSolutionsButton,
+      confirmCheckDialog: this.params.roundOptions.confirmCheckDialog,
+      singlePoint: this.params.roundOptions.singlePoint,
+      previousState: this.previousState?.children
+    }, this);
+
+    // Reattach H5P.Question buttons and scorebar to endscreen
+    H5P.externalDispatcher.on('initialized', () => {
+      const feedback = document.querySelector('.h5p-container > .h5p-question-feedback');
+      if (feedback) {
+        this.content.endscreen.appendToPlaceholder(feedback.parentNode.removeChild(feedback));
+      }
+
+      const scorebar = document.querySelector('.h5p-container > .h5p-question-scorebar');
+      if (feedback) {
+        this.content.endscreen.appendToPlaceholder(scorebar.parentNode.removeChild(scorebar));
+      }
+
+      const buttons = document.querySelector('.h5p-container > .h5p-question-buttons');
+      if (buttons) {
+        this.content.endscreen.appendToPlaceholder(buttons.parentNode.removeChild(buttons));
+      }
+    });
   }
 
   /**
@@ -127,6 +129,7 @@ export default class ImageChoiceRounds extends H5P.Question {
    */
   registerDomElements() {
     if (!this.pool) {
+      // Display erroe message only
       const content = document.createElement('div');
       content.classList.add('h5p-image-choice-rounds-message');
       content.innerText = Dictionary.get('l10n.noImages');
@@ -136,9 +139,10 @@ export default class ImageChoiceRounds extends H5P.Question {
       return;
     }
 
+    // Create content
     this.content = new ImageChoiceRoundsContent(
       {
-        bundles: this.pool.getInstanceBundles(),
+        pages: this.pool.getPages(),
         endscreen: this.params.endscreen,
         currentPage: this.previousState?.currentPage || 0,
         contentId: this.contentId
@@ -155,6 +159,7 @@ export default class ImageChoiceRounds extends H5P.Question {
 
     this.updateEndscreen();
 
+    // Re-create the previous view state
     if (this.previousState.viewState === 'results') {
       this.content.showResults();
       this.content.updatePage();
@@ -177,40 +182,52 @@ export default class ImageChoiceRounds extends H5P.Question {
    * Add all the buttons that shall be passed to H5P.Question.
    */
   addButtons() {
-    const isShowingEndScreen = this.content.getCurrentPageIndex() >= Object.keys(this.pool.instanceBundles).length;
+    const isShowingEndScreen = this.content.getCurrentPageIndex() >= Object.keys(this.pool.getPages()).length;
 
     // Show solution button
-    this.addButton('show-solution', Dictionary.get('l10n.showSolution'), () => {
-      this.showSolutions();
-    }, isShowingEndScreen && this.params.behaviour.enableSolutionsButton && this.viewState !== 'solutions', {
-      'aria-label': this.params.a11y.showSolution
-    }, {});
+    this.addButton(
+      'show-solution',
+      Dictionary.get('l10n.showSolution'),
+      () => {
+        this.showSolutions();
+        this.content.swipeTo(0);
+      },
+      isShowingEndScreen && this.params.behaviour.enableSolutionsButton && this.viewState !== 'solutions',
+      { 'aria-label': this.params.a11y.showSolution},
+      {}
+    );
 
     // Retry button
-    this.addButton('try-again', Dictionary.get('l10n.tryAgain'), () => {
-      this.hideButton('show-solution');
-      this.hideButton('try-again');
-
-      this.resetTask();
-
-      this.trigger('resize');
-    }, isShowingEndScreen && this.params.behaviour.enableRetry, {
-      'aria-label': this.params.a11y.retry
-    }, {});
+    this.addButton(
+      'try-again',
+      Dictionary.get('l10n.tryAgain'),
+      () => {
+        this.resetTask();
+      },
+      isShowingEndScreen && this.params.behaviour.enableRetry,
+      {
+        'aria-label': this.params.a11y.retry
+      },
+      {}
+    );
   }
 
   /**
-   * Handle progress.
+   * Handle progress from page to page.
    */
   handleProgress() {
     const currentIndex = this.content.getCurrentPageIndex();
 
+    // Trigger xAPI `progressed`
     const progressedEvent = this.createXAPIEventTemplate('progressed');
     progressedEvent.data.statement.object.definition.extensions['http://id.tincanapi.com/extension/ending-point'] = currentIndex + 1;
     this.trigger(progressedEvent);
 
-    if (currentIndex >= Object.keys(this.pool.instanceBundles).length) {
-
+    if (currentIndex < Object.keys(this.pool.getPages()).length) { // Normal page
+      this.read(Dictionary.get('l10n.progressAnnouncer').replace('@current', currentIndex + 1));
+    }
+    else { // Endscreen
+      // xAPI completed should only be triggered the first time visiting the results
       if (this.viewState === 'task') {
         this.setViewState('results');
         this.trigger(this.getXAPICompletedEvent());
@@ -218,7 +235,7 @@ export default class ImageChoiceRounds extends H5P.Question {
 
       this.read(Dictionary.get('a11y.results'));
 
-      // Endscreen is showing
+      // Endscreen is showing already
       this.updateEndscreen();
 
       this.content.showResults();
@@ -234,9 +251,6 @@ export default class ImageChoiceRounds extends H5P.Question {
       setTimeout(() => {
         this.focusButton();
       }, 0); // H5P.Question must display button first
-    }
-    else {
-      this.read(Dictionary.get('l10n.progressAnnouncer').replace('@current', currentIndex + 1));
     }
   }
 
@@ -269,10 +283,13 @@ export default class ImageChoiceRounds extends H5P.Question {
       return false;
     }
 
-    const bundles = this.pool.getInstanceBundles();
+    const pages = this.pool.getPages();
     let answerGiven = false;
-    for (let i in bundles) {
-      if (bundles[i]?.instance.getAnswerGiven()) {
+    for (let i in pages) {
+      if (
+        typeof pages[i]?.instance.getAnswerGiven === 'function' &&
+        pages[i]?.instance.getAnswerGiven()
+      ) {
         answerGiven = true;
         break;
       }
@@ -287,10 +304,12 @@ export default class ImageChoiceRounds extends H5P.Question {
    */
   getScoreTotalScore() {
     let score = 0;
-    const bundles = this.pool.getInstanceBundles();
+    const pages = this.pool.getPages();
 
-    for (let i in bundles) {
-      score += bundles[i].instance.getScore();
+    for (let i in pages) {
+      score += (typeof pages[i]?.instance?.getScore === 'function') ?
+        pages[i].instance.getScore() :
+        0;
     }
 
     return Math.max(0, score);
@@ -302,10 +321,17 @@ export default class ImageChoiceRounds extends H5P.Question {
    */
   getScoreOnePoint() {
     let score = 1;
-    const bundles = this.pool.getInstanceBundles();
+    const pages = this.pool.getPages();
 
-    for (let i in bundles) {
-      if (bundles[i].instance.getScore() !== bundles[i].instance.getMaxScore()) {
+    for (let i in pages) {
+      if (
+        typeof pages[i]?.instance.getScore !== 'function' ||
+        typeof pages[i]?.instance.getMaxScore !== 'function'
+      ) {
+        continue;
+      }
+
+      if (pages[i].instance.getScore() !== pages[i].instance.getMaxScore()) {
         score = 0;
         break;
       }
@@ -346,7 +372,6 @@ export default class ImageChoiceRounds extends H5P.Question {
 
   /**
    * Get latest score.
-   *
    * @return {number} latest score.
    * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-2}
    */
@@ -377,9 +402,12 @@ export default class ImageChoiceRounds extends H5P.Question {
   getMaxScoreTotalScore() {
     let maxScore = 0;
 
-    const bundles = this.pool.getInstanceBundles();
-    for (let i in bundles) {
-      maxScore += bundles[i]?.instance.getMaxScore();
+    const pages = this.pool.getPages();
+    for (let i in pages) {
+      maxScore +=
+        typeof pages[i]?.instance.getMaxScore === 'function' ?
+          pages[i]?.instance.getMaxScore() :
+          0;
     }
 
     return maxScore;
@@ -456,11 +484,9 @@ export default class ImageChoiceRounds extends H5P.Question {
     }
 
     this.setViewState('task');
-
     this.content.resetTask();
 
     this.removeFeedback();
-
     this.hideButton('show-solution');
     this.hideButton('try-again');
 
@@ -604,6 +630,14 @@ export default class ImageChoiceRounds extends H5P.Question {
       currentPage: this.content.getCurrentPageIndex(),
       viewState: this.viewState
     };
+  }
+
+  /**
+   * Get global view state.
+   * @return {string} Global view state ('task'|'results'|'solutions').
+   */
+  getViewState() {
+    return this.viewState;
   }
 }
 
