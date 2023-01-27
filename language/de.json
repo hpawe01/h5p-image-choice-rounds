@@ -22,7 +22,7 @@
         },
         {
           "label": "Modus für die Bilderauswahl",
-          "description": "Wähle, ob Bilder nach einmaligen Anzeigen wieder in den Pool zurückgelegt werden und erneut auftauchen können oder ob sie nicht zurückgelegt werden. Bitte beachte, dass die Anzahl der (richtigen) Bilder pro Runde nicht garantiert werden kann, wenn du \"Ohne Zurücklegen\" wählst",
+          "description": "Wähle, ob Bilder nach einmaligen Anzeigen wieder in den Pool zurückgelegt werden und erneut auftauchen können oder ob sie nicht zurückgelegt werden. Bitte beachte, dass die Anzahl der (richtigen) Bilder pro Runde nicht garantiert werden kann, wenn du \"Ohne Zurücklegen\" wählst.",
           "options": [
             {
               "label": "Mit Zurücklegen"
@@ -75,8 +75,8 @@
                   },
                   {},
                   {
-                    "label": "Feedback for defined score range",
-                    "placeholder": "Fill in the feedback"
+                    "label": "Rückmeldung für festgelegte Punktebereiche",
+                    "placeholder": "Trage die Rückmeldung ein"
                   }
                 ]
               }
@@ -115,7 +115,7 @@
               ],
               "label": "Lege absolute Punkte für einzelne Punktebereiche fest",
               "description": "Klicke auf den \"Bereich hinzufügen\"-Button, um so viele Bereiche hinzuzufügen, wie du brauchst. Beispiel: 0-20% 1, 21-91% 2, 91-100% 3",
-              "entity": "range",
+              "entity": "Bereich",
               "field": {
                 "fields": [
                   {
@@ -123,7 +123,7 @@
                   },
                   {},
                   {
-                    "label": "Score for range"
+                    "label": "Punkte für den Bereich"
                   }
                 ]
               }
