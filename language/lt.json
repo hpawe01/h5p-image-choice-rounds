@@ -8,21 +8,21 @@
       ]
     },
     {
-      "label": "Raundo nustatymai",
-      "description": "Šios parinktys leis jums kontroliuoti, kaip elgsis raundai.",
+      "label": "Ciklo nustatymai",
+      "description": "Šios parinktys leis jums kontroliuoti, kaip elgsis ciklai.",
       "fields": [
         {
-          "label": "Raundų skaičius"
+          "label": "Ciklų skaičius"
         },
         {
-          "label": "Paveikslėlių skaičius viename raunde"
+          "label": "Paveikslėlių skaičius viename cikle"
         },
         {
-          "label": "Teisingų paveikslėlių skaičius viename raunde"
+          "label": "Teisingų paveikslėlių skaičius viename cikle"
         },
         {
-          "label": "Mode for choosing images",
-          "description": "Choose whether images will be returned to the pool of images to choose from. Please note that your requested number of (correct) images per round may not be possible if you set the mode to \"sampling without replacement\".",
+          "label": "Paveikslėlių pasirinkimo režimas",
+          "description": "Pasirinkite, ar vaizdai bus grąžinti į pasirinktų vaizdų rinkinį. Atkreipkite dėmesį, kad jūsų pageidaujamas (teisingas) vaizdų skaičius viename cikle gali būti neįmanomas, jei nustatysite režimą „atrinkimas be pakeitimo“.",
           "options": [
             {
               "label": "Sampling with replacement"
