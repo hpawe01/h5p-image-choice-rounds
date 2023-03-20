@@ -1,0 +1,220 @@
+{
+  "semantics": [
+    {
+      "fields": [
+        {
+          "label": "Ejercicio de elección de imagen"
+        }
+      ]
+    },
+    {
+      "label": "Configuración de rondas",
+      "fields": [
+        {
+          "label": "Número de rondas"
+        },
+        {
+          "label": "Número de imágenes por ronda"
+        },
+        {
+          "label": "Número de imágenes correctas por ronda"
+        },
+        {
+          "label": "Modo para elegir imágenes",
+          "description": "Elige si las imágenes se devolverán al grupo de imágenes seleccionables. Ten en cuenta que la cantidad solicitada de imágenes (correctas) por ronda puede no ser posible si configuras el modo como \"muestreo sin reemplazo\".",
+          "options": [
+            {
+              "label": "Muestreo con reemplazo"
+            },
+            {
+              "label": "Muestreo sin reemplazo"
+            }
+          ]
+        },
+        {
+          "label": "La puntuación en una ronda puede ser negativa"
+        },
+        {
+          "label": "Habilite el botón \"Mostrar solución\""
+        },
+        {
+          "label": "Mostrar diálogo de confirmación en \"Comprobar\""
+        },
+        {
+          "label": "Dar un punto a la pregunta completa"
+        }
+      ],
+      "description": "Estas opciones te permitirán controlar cómo se comportan las rondas."
+    },
+    {
+      "fields": [
+        {
+          "label": "imagen de pantalla final"
+        },
+        {
+          "label": "Texto de la pantalla final",
+          "placeholder": "¡Lo lograste!"
+        },
+        {
+          "fields": [
+            {
+              "description": "Haz clic en el botón \"Añadir rango\" para añadir los rangos que necesites. Ejemplo: 0-20% Mala puntuación, 21-91% Puntuación Media, 91-100% ¡Puntuación Estupenda!",
+              "entity": "rango",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Rango de Puntuación"
+                  },
+                  {},
+                  {
+                    "label": "Retroalimentación para rango de puntaje definido",
+                    "placeholder": "Escribe tu retroalimentación"
+                  }
+                ]
+              },
+              "widgets": [
+                {
+                  "label": "Por defecto"
+                }
+              ],
+              "label": "Definir retroalimentación personalizada para cualquier rango de puntuación"
+            }
+          ],
+          "label": "Retroalimentación global"
+        }
+      ],
+      "label": "Pantalla final"
+    },
+    {
+      "label": "Ajustes de comportamiento",
+      "description": "Estas opciones te permitirán controlar como se comporta la tarea.",
+      "fields": [
+        {
+          "label": "Modo para la puntuación general",
+          "description": "\"Puntuación total\" sumará las puntuaciones de todas las rondas. \"Un punto a todo\" dará 1 punto si todas las rondas fueron completamente correctas, 0 de lo contrario. \"Personalizado\" permite definir una puntuación basada en rangos de puntuación.",
+          "options": [
+            {
+              "label": "Puntuación total"
+            },
+            {
+              "label": "Un punto a todo"
+            },
+            {
+              "label": "Personalizada"
+            }
+          ]
+        },
+        {
+          "label": "Puntuación personalizada",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Por defecto"
+                }
+              ],
+              "label": "Define puntuaciones absolutas personalizadas para cualquier rango de puntuación total",
+              "description": "Haz clic en el botón \"Agregar rango\" para agregar tantos rangos como necesites. Ejemplo: 0-20 % 1, 21-91 % 2, 91-100 % 3",
+              "entity": "rango",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Rango de Puntuación"
+                  },
+                  {},
+                  {
+                    "label": "Puntuación para el rango"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Habilitar \"Reintentar\"",
+          "description": "Esta opción estará disponible después de completar todas las rondas, no después de cada ronda."
+        },
+        {
+          "label": "Habilitar \"Solución\"",
+          "description": "Esta opción estará disponible después de completar todas las rondas, no después de cada ronda."
+        }
+      ]
+    },
+    {
+      "label": "Interfaz de usuario",
+      "fields": [
+        {
+          "label": "Texto para botón \"Comprobar\"",
+          "default": "Comprobar"
+        },
+        {
+          "label": "Texto para el botón \"Enviar\"",
+          "default": "Enviar"
+        },
+        {
+          "label": "Texto para el botón \"Intentar de nuevo\"",
+          "default": "Intentar de nuevo"
+        },
+        {
+          "label": "Texto para el botón \"Mostrar Solución\"",
+          "default": "Mostrar solución"
+        },
+        {
+          "label": "Texto para el anunciador de ronda",
+          "description": "@current es un marcador de posición y será reemplazado por el valor real.",
+          "default": "Ronda @actual"
+        },
+        {
+          "label": "Mensaje para imágenes que faltan",
+          "default": "No se establecieron imágenes o no se pueden cumplir las reglas de la ronda."
+        }
+      ]
+    },
+    {
+      "label": "Lector de pantalla",
+      "fields": [
+        {
+          "label": "Descripción para las tecnologías de asistencia del botón \"Comprobar\"",
+          "default": "Revisa tus respuestas. Las respuestas se marcarán como correcta, incorrecta o sin contestar."
+        },
+        {
+          "label": "Descripción para las tecnologías de asistencia del botón \"Mostrar solución\"",
+          "default": "Mostrar la solución. El trabajo será calificado con su solución correcta."
+        },
+        {
+          "label": "Descripción para las tecnologías de asistencia del botón \"Intentar de nuevo\"",
+          "default": "Vuelve a intentar la tarea. Borra todas tus respuestas y empieza de nuevo."
+        },
+        {
+          "label": "Descripción para las tecnología de asistencia para el anuncio de \"Resultados\"",
+          "default": "Resultados"
+        },
+        {
+          "label": "Descripción para las tecnología de asistencia para anuncios de \"puntuación\"",
+          "description": "@score será remplazado por el número de puntos. @total será remplazado por el número máximo posible de puntos.",
+          "default": "Has obtenido @score de un total de @total puntos"
+        },
+        {
+          "label": "Descripción para las tecnologías de asistencia del botón \"Ronda anterior\"",
+          "default": "Ronda anterior"
+        },
+        {
+          "label": "Descripción para las tecnologías de asistencia del botón \"Ronda anterior\" cuando no esté disponible",
+          "default": "Ronda anterior no disponible"
+        },
+        {
+          "label": "Descripción para las tecnologías de asistencia del botón \"Ronda siguiente\"",
+          "default": "Ronda siguiente"
+        },
+        {
+          "label": "Descripción para las tecnología de asistencia para el botón \"Ronda siguiente\" cuando no esté disponible",
+          "default": "Ronda siguiente no disponible"
+        },
+        {
+          "label": "Descripción para las tecnologías de asistencia del botón \"Terminar\"",
+          "default": "Terminar"
+        }
+      ]
+    }
+  ]
+}

@@ -1,220 +1,239 @@
 {
-  "semantics": [
-    {
-      "fields": [
+    "semantics": [
         {
-          "label": "Oefening afbeeldingskeuzelus"
-        }
-      ]
-    },
-    {
-      "label": "Ronde-instellingen",
-      "description": "Met deze opties kun je bepalen hoe de rondes zich gedragen.",
-      "fields": [
-        {
-          "label": "Aantal ronden"
-        },
-        {
-          "label": "Aantal afbeeldingen per ronde"
-        },
-        {
-          "label": "Aantal juiste afbeeldingen per ronde"
-        },
-        {
-          "label": "Modus voor de afbeeldingskeuze",
-          "description": "Kies of de afbeeldingen zullen worden teruggestuurd naar de pool van afbeeldingen om uit te kiezen. Houd er rekening mee dat het door jou gewenste aantal (juiste) afbeeldingen per ronde mogelijk niet beschikbaar is als je de modus instelt op \"steekproeftrekking zonder vervanging\".",
-          "opties": [
-            {
-              "label": "Steekproef met vervanging"
-            },
-            {
-              "label": "Steekproefneming zonder vervanging"
-            }
-          ]
-        },
-        {
-          "label": "De score in een ronde kan negatief zijn"
-        },
-        {
-          "label": "Schakel \"Toon oplossing\" knop in"
-        },
-        {
-          "label": "Bevestigingsdialoog tonen bij \"Controleer\""
-        },
-        {
-          "label": "Geef één punt voor de hele vraag"
-        }
-      ]
-    },
-    {
-      "label": "Einde scherm",
-      "fields": [
-        {
-          "label": "Afbeelding voor einde scherm"
-        },
-        {
-          "label": "Tekst voor einde scherm",
-          "placeholder": "Het is je gelukt."
-        },
-        {
-          "label": "Algemene feedback",
-          "fields": [
-            {
-              "widgets": [
+            "fields": [
                 {
-                  "label": "Standaard"
+                    "label": "Oefening afbeeldingskeuzelus"
                 }
-              ],
-              "label": "Definieer aangepaste feedback voor elke scorereeks",
-              "description": "Druk op de knop \"Voeg scorereeks toe\" om zoveel reeksen toe te voegen als nodig is. Voorbeeld: 0-20% Onvoldoende score, 21-91% Gemiddelde score, 91-100% Uitstekende score!",
-              "entity": "reeks",
-              "field": {
-                "fields": [
-                  {
-                    "label": "Scorereeks"
-                  },
-                  {},
-                  {
-                    "label": "Feedback voor de gedefinieerde scorereeks",
-                    "placeholder": "Vul de aangepaste feedback in"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "label": "Gedragsinstellingen",
-      "description": "Met deze opties kun je bepalen hoe de taak zich gedraagt.",
-      "fields": [
-        {
-          "label": "Wijze van globale puntentelling",
-          "description": "\"Totaalscore\" zal de scores van alle rondes optellen. \"Eén punt in totaal\" zal 1 punt toekennen als alle rondes volledig correct zijn, 0 indien niet. \"Aangepast\" maakt het mogelijk een score te definiëren op basis van scorebereiken.",
-          "opties": [
-            {
-              "label": "Totaalscore"
-            },
-            {
-              "label": "Eén punt in totaal"
-            },
-            {
-              "label": "Aangepast"
-            }
-          ]
+            ]
         },
         {
-          "label": "Aangepaste scores",
-          "fields": [
-            {
-              "widgets": [
+            "label": "Ronde-instellingen",
+            "description": "Met deze opties kun je bepalen hoe de rondes zich gedragen.",
+            "fields": [
                 {
-                  "label": "Standaard"
+                    "label": "Aantal ronden"
+                },
+                {
+                    "label": "Aantal afbeeldingen per ronde"
+                },
+                {
+                    "label": "Aantal juiste afbeeldingen per ronde"
+                },
+                {
+                    "label": "Modus voor de afbeeldingskeuze",
+                    "description": "Kies of de afbeeldingen zullen worden teruggestuurd naar de pool van afbeeldingen om uit te kiezen. Houd er rekening mee dat het door jou gewenste aantal (juiste) afbeeldingen per ronde mogelijk niet beschikbaar is als je de modus instelt op \"steekproeftrekking zonder vervanging\".",
+                    "opties": [
+                        {
+                            "label": "Steekproef met vervanging"
+                        },
+                        {
+                            "label": "Steekproefneming zonder vervanging"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "Sampling with replacement"
+                        },
+                        {
+                            "label": "Sampling without replacement"
+                        }
+                    ]
+                },
+                {
+                    "label": "De score in een ronde kan negatief zijn"
+                },
+                {
+                    "label": "Schakel \"Toon oplossing\" knop in"
+                },
+                {
+                    "label": "Bevestigingsdialoog tonen bij \"Controleer\""
+                },
+                {
+                    "label": "Geef één punt voor de hele vraag"
                 }
-              ],
-              "label": "Definieer de aangepaste absolute scores voor elk totaalscorebereik",
-              "description": "Klik op de knop \"Voeg scorereeks\" om zoveel reeksen toe te voegen als nodig is. Voorbeeld: 0-20% 1, 21-91% 2, 91-100% 3",
-              "entity": "reeks",
-              "field": {
-                "fields": [
-                  {
-                    "label": "Scorereeks"
-                  },
-                  {},
-                  {
-                    "label": "Score voor reeks"
-                  }
-                ]
-              }
-            }
-          ]
+            ]
         },
         {
-          "label": "Schakel \"Opnieuw\" in",
-          "description": "Deze optie zal beschikbaar zijn na het voltooien van alle rondes, niet na elke ronde."
+            "label": "Einde scherm",
+            "fields": [
+                {
+                    "label": "Afbeelding voor einde scherm"
+                },
+                {
+                    "label": "Tekst voor einde scherm",
+                    "placeholder": "Het is je gelukt."
+                },
+                {
+                    "label": "Algemene feedback",
+                    "fields": [
+                        {
+                            "widgets": [
+                                {
+                                    "label": "Standaard"
+                                }
+                            ],
+                            "label": "Definieer aangepaste feedback voor elke scorereeks",
+                            "description": "Druk op de knop \"Voeg scorereeks toe\" om zoveel reeksen toe te voegen als nodig is. Voorbeeld: 0-20% Onvoldoende score, 21-91% Gemiddelde score, 91-100% Uitstekende score!",
+                            "entity": "reeks",
+                            "field": {
+                                "fields": [
+                                    {
+                                        "label": "Scorereeks"
+                                    },
+                                    {},
+                                    {
+                                        "label": "Feedback voor de gedefinieerde scorereeks",
+                                        "placeholder": "Vul de aangepaste feedback in"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
-          "label": "Schakel \"Oplossing\" in",
-          "description": "Deze optie zal beschikbaar zijn na het voltooien van alle rondes, niet na elke ronde."
+            "label": "Gedragsinstellingen",
+            "description": "Met deze opties kun je bepalen hoe de taak zich gedraagt.",
+            "fields": [
+                {
+                    "label": "Wijze van globale puntentelling",
+                    "description": "\"Totaalscore\" zal de scores van alle rondes optellen. \"Eén punt in totaal\" zal 1 punt toekennen als alle rondes volledig correct zijn, 0 indien niet. \"Aangepast\" maakt het mogelijk een score te definiëren op basis van scorebereiken.",
+                    "opties": [
+                        {
+                            "label": "Totaalscore"
+                        },
+                        {
+                            "label": "Eén punt in totaal"
+                        },
+                        {
+                            "label": "Aangepast"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "Total score"
+                        },
+                        {
+                            "label": "One point total"
+                        },
+                        {
+                            "label": "Custom"
+                        }
+                    ]
+                },
+                {
+                    "label": "Aangepaste scores",
+                    "fields": [
+                        {
+                            "widgets": [
+                                {
+                                    "label": "Standaard"
+                                }
+                            ],
+                            "label": "Definieer de aangepaste absolute scores voor elk totaalscorebereik",
+                            "description": "Klik op de knop \"Voeg scorereeks\" om zoveel reeksen toe te voegen als nodig is. Voorbeeld: 0-20% 1, 21-91% 2, 91-100% 3",
+                            "entity": "reeks",
+                            "field": {
+                                "fields": [
+                                    {
+                                        "label": "Scorereeks"
+                                    },
+                                    {},
+                                    {
+                                        "label": "Score voor reeks"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "Schakel \"Opnieuw\" in",
+                    "description": "Deze optie zal beschikbaar zijn na het voltooien van alle rondes, niet na elke ronde."
+                },
+                {
+                    "label": "Schakel \"Oplossing\" in",
+                    "description": "Deze optie zal beschikbaar zijn na het voltooien van alle rondes, niet na elke ronde."
+                }
+            ]
+        },
+        {
+            "label": "Gebruikersinterface",
+            "fields": [
+                {
+                    "label": "Tekst voor de \"Controleer\" -knop",
+                    "default": "Controleer"
+                },
+                {
+                    "label": "Tekst voor de \"Verzend\" -knop",
+                    "default": "Verzend"
+                },
+                {
+                    "label": "Tekst voor de \"Opnieuw\" -knop",
+                    "default": "Opnieuw"
+                },
+                {
+                    "label": "Tekst voor de \"Toon oplossing\" -knop",
+                    "default": "Toon oplossing"
+                },
+                {
+                    "label": "Tekst voor ronde aankondiger",
+                    "description": "@current is een plaatshouder en zal worden vervangen door de werkelijke waarde.",
+                    "default": "Ronde @current"
+                },
+                {
+                    "label": "Bericht voor ontbrekende afbeeldingen",
+                    "default": "Er zijn geen afbeeldingen ingesteld of er kan niet aan de rondevoorschriften worden voldaan."
+                }
+            ]
+        },
+        {
+            "label": "Voorleesapparaat",
+            "fields": [
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"Controleer\" -knop",
+                    "default": "Controleer de antwoorden. De antwoorden worden gemarkeerd als juist, onjuist of onbeantwoord."
+                },
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"Toon oplossing\" -knop",
+                    "default": "Toon de oplossing. De opgave wordt getoond met de juiste oplossing."
+                },
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"Opnieuw\" -knop",
+                    "default": "Probeer de opgave opnieuw. Reset alle antwoorden en begin opnieuw met de opgave."
+                },
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"Resultaten\" bekendmaking",
+                    "default": "Resultaten"
+                },
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"score\" bekendmaking",
+                    "description": "@score zal worden vervangen door het aantal punten. @total zal worden vervangen door het maximaal haalbare aantal punten.",
+                    "default": "Je hebt @score van de @total punten"
+                },
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"Vorige ronde\" -knop",
+                    "default": "Vorige ronde"
+                },
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"Vorige ronde\" -knop indien niet beschikbaar",
+                    "default": "Vorige ronde niet beschikbaar"
+                },
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"Volgende ronde\" -knop",
+                    "default": "Volgende ronde"
+                },
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"Next round\" -knop indien niet beschikbaar",
+                    "default": "Volgende ronde niet beschikbaar"
+                },
+                {
+                    "label": "Beschrijving van ondersteunende technologie voor de \"Klaar\" -knop",
+                    "default": "Klaar"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "label": "Gebruikersinterface",
-      "fields": [
-        {
-          "label": "Tekst voor de \"Controleer\" -knop",
-          "default": "Controleer"
-        },
-        {
-          "label": "Tekst voor de \"Verzend\" -knop",
-          "default": "Verzend"
-        },
-        {
-          "label": "Tekst voor de \"Opnieuw\" -knop",
-          "default": "Opnieuw"
-        },
-        {
-          "label": "Tekst voor de \"Toon oplossing\" -knop",
-          "default": "Toon oplossing"
-        },
-        {
-          "label": "Tekst voor ronde aankondiger",
-          "description": "@current is een plaatshouder en zal worden vervangen door de werkelijke waarde.",
-          "default": "Ronde @current"
-        },
-        {
-          "label": "Bericht voor ontbrekende afbeeldingen",
-          "default": "Er zijn geen afbeeldingen ingesteld of er kan niet aan de rondevoorschriften worden voldaan."
-        }
-      ]
-    },
-    {
-      "label": "Voorleesapparaat",
-      "fields": [
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"Controleer\" -knop",
-          "default": "Controleer de antwoorden. De antwoorden worden gemarkeerd als juist, onjuist of onbeantwoord."
-        },
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"Toon oplossing\" -knop",
-          "default": "Toon de oplossing. De opgave wordt getoond met de juiste oplossing."
-        },
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"Opnieuw\" -knop",
-          "default": "Probeer de opgave opnieuw. Reset alle antwoorden en begin opnieuw met de opgave."
-        },
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"Resultaten\" bekendmaking",
-          "default": "Resultaten"
-        },
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"score\" bekendmaking",
-          "description": "@score zal worden vervangen door het aantal punten. @total zal worden vervangen door het maximaal haalbare aantal punten.",
-          "default": "Je hebt @score van de @total punten"
-        },
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"Vorige ronde\" -knop",
-          "default": "Vorige ronde"
-        },
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"Vorige ronde\" -knop indien niet beschikbaar",
-          "default": "Vorige ronde niet beschikbaar"
-        },
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"Volgende ronde\" -knop",
-          "default": "Volgende ronde"
-        },
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"Next round\" -knop indien niet beschikbaar",
-          "default": "Volgende ronde niet beschikbaar"
-        },
-        {
-          "label": "Beschrijving van ondersteunende technologie voor de \"Klaar\" -knop",
-          "default": "Klaar"
-        }
-      ]
-    }
-  ]
+    ]
 }

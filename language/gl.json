@@ -1,0 +1,220 @@
+{
+  "semantics": [
+    {
+      "fields": [
+        {
+          "label": "Exercicio de elección de imaxes"
+        }
+      ]
+    },
+    {
+      "label": "Configuración de roldas",
+      "description": "Estas opcións permítenche controlar como se comportan as roldas.",
+      "fields": [
+        {
+          "label": "Número de roldas"
+        },
+        {
+          "label": "Número de imaxes por rolda"
+        },
+        {
+          "label": "Número de imaxes correctas por rolda"
+        },
+        {
+          "label": "Modo para escoller imaxes",
+          "description": "Escolla se as imaxes se devolverán ao grupo de imaxes para escoller. Teña en conta que é posible que o número solicitado de imaxes (correctas) por rolda non sexa posible se configura o modo como \"amosado sen substitución\".",
+          "options": [
+            {
+              "label": "Amosado con substitución"
+            },
+            {
+              "label": "Amosado sen substitución"
+            }
+          ]
+        },
+        {
+          "label": "A puntuación nunha rolda pode ser negativa"
+        },
+        {
+          "label": "Activar botón \"Amosar Solución\""
+        },
+        {
+          "label": "Amosar diálogo de confirmación ao premer en \"Comprobar\""
+        },
+        {
+          "label": "Dá un punto a toda a pregunta"
+        }
+      ]
+    },
+    {
+      "label": "Pantalla final",
+      "fields": [
+        {
+          "label": "imaxe da pantalla final"
+        },
+        {
+          "label": "Texto da pantalla final",
+          "placeholder": "Conseguíchelo!"
+        },
+        {
+          "label": "Retroalimentación xeral",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Por defecto"
+                }
+              ],
+              "label": "Define a retroalimentación personalizada para cada rango de puntuación",
+              "description": "Preme o botón \"Engadir rango\" para engadir os rangos que precises. Por exemplo: 0-20% Puntuación Mala, 21-91% Puntuación Media, 91-100% Puntuación Xenial!",
+              "entity": "rango",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Rango de Puntuación"
+                  },
+                  {},
+                  {
+                    "label": "Retroalimentación para rango de puntuación definido",
+                    "placeholder": "Escribe a túa retroalimentación"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Configuración do comportamento",
+      "description": "Estas opcións permitiranche controlar o comportamento da tarefa.",
+      "fields": [
+        {
+          "label": "Modo de puntuación global",
+          "description": "\"Puntuación total\" sumará as puntuacións de todas as roldas. \"Un punto para o total\" outorgará 1 punto se todas as roldas foron totalmente correctas, 0 en caso contrario. \"Personalizado\" permite definir unha puntuación baseada en intervalos de puntuación.",
+          "options": [
+            {
+              "label": "Puntuación total"
+            },
+            {
+              "label": "Un punto para o total"
+            },
+            {
+              "label": "Personalizado"
+            }
+          ]
+        },
+        {
+          "label": "Puntuación personalizada",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Por defecto"
+                }
+              ],
+              "label": "Define puntuacións absolutas personalizadas para calquera intervalo de puntuación total",
+              "description": "Preme o botón \"Engadir intervalo\" para engadir tantos intervalos como necesites. Exemplo: 0-20 % 1, 21-91 % 2, 91-100 % 3",
+              "entity": "rango",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Rango de Puntuación"
+                  },
+                  {},
+                  {
+                    "label": "Puntuación para o rango"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Activar \"Tentar de novo\"",
+          "description": "Esta opción estará dispoñible despois de completar todas as roldas, non despois de cada rolda."
+        },
+        {
+          "label": "Activar \"Solución\"",
+          "description": "Esta opción estará dispoñible despois de completar todas as roldas, non despois de cada rolda."
+        }
+      ]
+    },
+    {
+      "label": "Interface de usuario",
+      "fields": [
+        {
+          "label": "Texto para o botón \"Comprobar\"",
+          "default": "Comprobar"
+        },
+        {
+          "label": "Texto para o botón \"Enviar\"",
+          "default": "Enviar"
+        },
+        {
+          "label": "Texto para o botón \"Tentar de novo\"",
+          "default": "Tentar de novo"
+        },
+        {
+          "label": "Texto para o botón \"Amosar solución\"",
+          "default": "Amosar a solución"
+        },
+        {
+          "label": "Texto para o anuncio da rolda",
+          "description": "@current é un marcador de posición e substituirase polo valor real.",
+          "default": "Rolda @current"
+        },
+        {
+          "label": "Mensaxe para as imaxes que faltan",
+          "default": "Non se estableceron imaxes ou non se poden cumprir as regras da rolda."
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "label": "Descrición para as tecnoloxías de asistencia do botón \"Comprobar\"",
+          "default": "Comproba as túas respostas. As respostas marcaranse como correctas, incorrectas ou non contestadas."
+        },
+        {
+          "label": "Descrición para as tecnoloxías de asistencia do botón \"Amosar solución\"",
+          "default": "Amosar a solución. A tarefa marcarase coa súa resposta correcta."
+        },
+        {
+          "label": "Descrición para as tecnoloxías de asistencia do botón \"Tentar de novo\"",
+          "default": "Reintentar a tarefa. Borra todas as respostas e empeza a tarefa de novo."
+        },
+        {
+          "label": "Descrición para as tecnoloxías de asistencia do anuncio de \"Resultados\"",
+          "default": "Resultados"
+        },
+        {
+          "label": "Descrición para as tecnoloxías de asistencia dos anuncios de \"puntuación\"",
+          "description": "Substituirase @score polo número de puntos. Substituirase @total polo número máximo de puntos posible.",
+          "default": "Conseguiches @score dun máximo de @total puntos"
+        },
+        {
+          "label": "Descrición para as tecnoloxías de asistencia do botón \"Rolda anterior\"",
+          "default": "Rolda anterior"
+        },
+        {
+          "label": "Descrición para as tecnoloxías de asistencia do botón \"Ronda anterior\" cando non está dispoñible",
+          "default": "A rolda anterior non está dispoñible"
+        },
+        {
+          "label": "Descrición para as tecnoloxías de asistencia do botón \"Próxima rolda\"",
+          "default": "Próxima rolda"
+        },
+        {
+          "label": "Descrición para as tecnoloxías de asistencia do botón \"Ronda seguinte\" cando non está dispoñible",
+          "default": "A seguinte rolda non está dispoñible"
+        },
+        {
+          "default": "Rematar",
+          "label": "Descrición para as tecnoloxías de asistencia do botón \"Rematar\""
+        }
+      ],
+      "label": "Lector de pantalla"
+    }
+  ]
+}
