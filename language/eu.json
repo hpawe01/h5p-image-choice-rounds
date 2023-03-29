@@ -3,80 +3,80 @@
     {
       "fields": [
         {
-          "label": "Image Choice exercise"
+          "label": "Irudia aukeratzeko ariketa"
         }
       ]
     },
     {
-      "label": "Round settings",
-      "description": "These options will let you control how the rounds behave.",
+      "label": "Txanden ezarpenak",
+      "description": "Aukera hauei esker, kontrolatu ahal izango duzu txandak nola jokatu.",
       "fields": [
         {
-          "label": "Number of rounds"
+          "label": "Txanden kopurua"
         },
         {
-          "label": "Number of images per round"
+          "label": "Txanda bakoitzeko irudi kopurua"
         },
         {
-          "label": "Number of correct images per round"
+          "label": "Txanda bakoitzeko irudi zuzenen kopurua"
         },
         {
-          "label": "Mode for choosing images",
-          "description": "Choose whether images will be returned to the pool of images to choose from. Please note that your requested number of (correct) images per round may not be possible if you set the mode to \"sampling without replacement\".",
+          "label": "Irudiak aukeratzeko modua",
+          "description": "Aukeratu irudiak aukeratzeko irudi multzora itzuliko diren ala ez. Kontuan izan txanda bakoitzeko eskatutako irudi (zuzenen) kopurua agian ez dela posible modua \"ordezkatu gabe lagintzea\" ezartzen baduzu.",
           "options": [
             {
-              "label": "Sampling with replacement"
+              "label": "Laginketa ordezkapenarekin"
             },
             {
-              "label": "Sampling without replacement"
+              "label": "Laginketa ordezkatu gabe"
             }
           ]
         },
         {
-          "label": "Score in a round can be negative"
+          "label": "Txanda bateko puntuazioa negatiboa izan daiteke"
         },
         {
-          "label": "Enable \"Show Solution\" button"
+          "label": "Gaitu \"Erakutsi soluzioa\" botoia"
         },
         {
-          "label": "Show confirmation dialog on \"Check\""
+          "label": "Erakutsi berrespen-koadroa \"Egiaztatu\" aukeran"
         },
         {
-          "label": "Give one point for the whole question"
+          "label": "Eman puntu bat galdera osoari"
         }
       ]
     },
     {
-      "label": "End screen",
+      "label": "Amaierako pantaila",
       "fields": [
         {
-          "label": "end screen image"
+          "label": "amaierako pantailako irudia"
         },
         {
-          "label": "End screen text",
-          "placeholder": "You did it!"
+          "label": "amaierako pantailako testua",
+          "placeholder": "Lortu duzu!"
         },
         {
-          "label": "Overall Feedback",
+          "label": "Iruzkin orokorra",
           "fields": [
             {
               "widgets": [
                 {
-                  "label": "Default"
+                  "label": "Lehenetsia"
                 }
               ],
-              "label": "Define custom feedback for any score range",
-              "description": "Click the \"Add range\" button to add as many ranges as you need. Example: 0-20% Bad score, 21-91% Average Score, 91-100% Great Score!",
-              "entity": "range",
+              "label": "Idatzi iruzkin pertsonalizatua edozein puntuazio tarterako",
+              "description": "Egin klik \"Gehitu tartea\" botoian behar adina tarte gehitzeko. Adibidez: % 0-20 puntuazio txarra, % 21-91 tarteko puntuazioa, % 91-100 puntuazio bikaina!",
+              "entity": "tartea",
               "field": {
                 "fields": [
                   {
-                    "label": "Score Range"
+                    "label": "Puntuazio tartea"
                   },
                   {},
                   {
-                    "label": "Feedback for defined score range",
-                    "placeholder": "Fill in the feedback"
+                    "label": "Definitutako puntuazio-tarteari buruzko iruzkina",
+                    "placeholder": "Bete iruzkina"
                   }
                 ]
               }
@@ -88,40 +88,40 @@
     {
       "fields": [
         {
-          "label": "Mode for overall scoring",
-          "description": "\"Total score\" will sum up scores of all rounds. \"One point total\" will award 1 point if all rounds were fully correct, 0 otherwise. \"Custom\" allows to define a score based on score ranges.",
+          "label": "Puntuazio orokorra lortzeko modua",
+          "description": "\"Puntuazio osoa\" txanda guztietako puntuazioak batuko ditu. \"Puntu bat guztira\" puntu 1 emango du txanda guztiak guztiz zuzenak badira, 0 bestela. \"Pertsonalizatuak\" aukera ematen du puntuazio-tarteetan oinarritutako puntuazioa definitzeko.",
           "options": [
             {
-              "label": "Total score"
+              "label": "Puntuazio osoa"
             },
             {
-              "label": "One point total"
+              "label": "Puntu bat guztira"
             },
             {
-              "label": "Custom"
+              "label": "Pertsonalizatua"
             }
           ]
         },
         {
-          "label": "Custom scoring",
+          "label": "Puntuazio pertsonalizatua",
           "fields": [
             {
               "widgets": [
                 {
-                  "label": "Default"
+                  "label": "Lehenetsia"
                 }
               ],
-              "label": "Define custom absolute scores for any total score range",
-              "description": "Click the \"Add range\" button to add as many ranges as you need. Example: 0-20% 1, 21-91% 2, 91-100% 3",
-              "entity": "range",
+              "label": "Definitu puntuazio absolutu pertsonalizatuak edozein puntuazio tarterako",
+              "description": "Egin klik \"Gehitu tartea\" botoian behar adina tarte gehitzeko. Adibidea: 0-20% 1, 21-91% 2, 91-100% 3",
+              "entity": "tartea",
               "field": {
                 "fields": [
                   {
-                    "label": "Score Range"
+                    "label": "Puntuazio tartea"
                   },
                   {},
                   {
-                    "label": "Score for range"
+                    "label": "Tarterako puntuazioa"
                   }
                 ]
               }
@@ -129,90 +129,90 @@
           ]
         },
         {
-          "label": "Enable \"Retry\"",
-          "description": "This option will be available after completing all rounds, not after each round."
+          "label": "Gaitu \"Saiatu berriro\"",
+          "description": "Aukera hau txanda guztiak amaitu ondoren egongo da eskuragarri, ez txanda bakoitzaren ondoren."
         },
         {
-          "label": "Enable \"Solution\"",
-          "description": "This option will be available after completing all rounds, not after each round."
+          "label": "Gaitu \"Soluzioa\"",
+          "description": "Aukera hau txanda guztiak amaitu ondoren egongo da eskuragarri, ez txanda bakoitzaren ondoren."
         }
       ],
-      "label": "Behavioural settings",
-      "description": "These options will let you control how the task behaves."
+      "label": "Jokabide-ezarpenak",
+      "description": "Aukera hauek zereginaren portaera kontrolatzeko aukera emango dizute."
     },
     {
       "fields": [
         {
-          "default": "Check",
-          "label": "Text for \"Check\" button"
+          "default": "Egiaztatu",
+          "label": "\"Egiaztatu\" botoiaren testua"
         },
         {
-          "label": "Text for \"Submit\" button",
-          "default": "Submit"
+          "label": "\"Bidali\" botoiaren testua",
+          "default": "Bidali"
         },
         {
-          "default": "Retry",
-          "label": "Text for \"Retry\" button"
+          "default": "Saiatu berriro",
+          "label": "\"Saiatu berriro\" botoiaren testua"
         },
         {
-          "label": "Text for \"Show solution\" button",
-          "default": "Show solution"
+          "label": "\"Erakutsi soluzioa\" botoiaren testua",
+          "default": "Erakutsi soluzioa"
         },
         {
-          "label": "Text for round announcer",
-          "description": "@current is a placeholder and will be replaced by the actual value.",
-          "default": "Round @current"
+          "label": "Txandako iragarkirako testua",
+          "description": "@current behin behinekoa da eta benetako balioarekin ordezkatuko da.",
+          "default": "@current txanda"
         },
         {
-          "label": "Message for missing images",
-          "default": "No images were set or the round rules cannot be satisfied."
+          "label": "Falta diren irudietarako mezua",
+          "default": "Ez zen irudirik ezarri edo ezin dira txandaren arauak bete."
         }
       ],
-      "label": "User interface"
+      "label": "Erabiltzailearen interfazea"
     },
     {
-      "label": "Readspeaker",
+      "label": "Pantaila irakurgailua",
       "fields": [
         {
-          "label": "Assistive technology description for \"Check\" button",
-          "default": "Check the answers. The responses will be marked as correct, incorrect, or unanswered."
+          "label": "\"Egiaztatu\" botoiaren laguntza-teknologiaren deskribapena",
+          "default": "Egiaztatu erantzunak. Erantzunak zuzenak, okerrak edo erantzunik gabeko gisa markatuko dira."
         },
         {
-          "label": "Assistive technology description for \"Show Solution\" button",
-          "default": "Show the solution. The task will be marked with its correct solution."
+          "label": "\"Erakutsi soluzioa\" botoiaren laguntza-teknologiaren deskribapena",
+          "default": "Erakutsi soluzioa. Ataza bere soluzio zuzenarekin markatuko da."
         },
         {
-          "label": "Assistive technology description for \"Retry\" button",
-          "default": "Retry the task. Reset all responses and start the task over again."
+          "label": "\"Saiatu berriro\" botoiaren laguntza-teknologiaren deskribapena",
+          "default": "Saiatu berriro zeregina egiten. Berrezarri erantzun guztiak eta hasi berriro zeregina."
         },
         {
-          "label": "Assistive technology description for \"Results\" announcement",
-          "default": "Results"
+          "label": "\"Emaitzak\" iragarkirako laguntza-teknologiaren deskribapena",
+          "default": "Emaitzak"
         },
         {
-          "label": "Assistive technology description for \"score\" announcements",
-          "description": "@score will be replaced by the number of points. @total will be replaced by the maximum possible points.",
-          "default": "You got @score out of @total points"
+          "label": "\"Puntuazioa\" iragarkietarako laguntza-teknologiaren deskribapena",
+          "description": "@score puntu kopuruarekin ordezkatuko da. @total gehienezko puntuazioarekin ordezkatuko da.",
+          "default": "@total puntuetatik @score lortu dituzu"
         },
         {
-          "label": "Assistive technology description for \"Previous round\" button",
-          "default": "Previous round"
+          "label": "\"Aurreko txanda\" botoiaren laguntza-teknologiaren deskribapena",
+          "default": "Aurreko txanda"
         },
         {
-          "label": "Assistive technology description for \"Previous round\" button when not available",
-          "default": "Previous round not available"
+          "label": "\"Aurreko txanda\" botoiaren laguntza-teknologiaren deskribapena erabilgarri ez dagoenean",
+          "default": "Aurreko txanda ez dago erabilgarri"
         },
         {
-          "label": "Assistive technology description for \"Next round\" button",
-          "default": "Next round"
+          "label": "\"Hurrengo txanda\" botoiaren laguntza-teknologiaren deskribapena",
+          "default": "Hurrengo txanda"
         },
         {
-          "label": "Assistive technology description for \"Next round\" button when not available",
-          "default": "Next round not available"
+          "label": "\"Hurrengo txanda\" botoiaren laguntza-teknologiaren deskribapena erabilgarri ez dagoenean",
+          "default": "Hurrengo txanda ez dago eskuragarri"
         },
         {
-          "label": "Assistive technology description for \"Finish\" button",
-          "default": "Finish"
+          "label": "\"Amaitu\" botoiaren laguntza-teknologiaren deskribapena",
+          "default": "Amaitu"
         }
       ]
     }
