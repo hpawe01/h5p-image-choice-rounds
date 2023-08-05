@@ -192,7 +192,7 @@
         {
           "label": "Descripción para las tecnología de asistencia para anuncios de \"puntuación\"",
           "description": "@score será remplazado por el número de puntos. @total será remplazado por el número máximo posible de puntos.",
-          "default": "Has obtenido @score de un total de @total puntos"
+          "default": "Usted obtuvo @score de un total de @total puntos"
         },
         {
           "label": "Descripción para las tecnologías de asistencia del botón \"Ronda anterior\"",
