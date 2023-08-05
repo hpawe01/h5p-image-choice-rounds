@@ -8,21 +8,21 @@
       ]
     },
     {
-      "label": "Raundo nustatymai",
-      "description": "Šios parinktys leis jums kontroliuoti, kaip elgsis raundai.",
+      "label": "Ciklo nustatymai",
+      "description": "Šios parinktys leis jums kontroliuoti, kaip elgsis ciklai.",
       "fields": [
         {
-          "label": "Raundų skaičius"
+          "label": "Ciklų skaičius"
         },
         {
-          "label": "Paveikslėlių skaičius viename raunde"
+          "label": "Paveikslėlių skaičius viename cikle"
         },
         {
-          "label": "Teisingų paveikslėlių skaičius viename raunde"
+          "label": "Teisingų paveikslėlių skaičius viename cikle"
         },
         {
-          "label": "Mode for choosing images",
-          "description": "Choose whether images will be returned to the pool of images to choose from. Please note that your requested number of (correct) images per round may not be possible if you set the mode to \"sampling without replacement\".",
+          "label": "Paveikslėlių pasirinkimo režimas",
+          "description": "Pasirinkite, ar vaizdai bus grąžinti į pasirinktų vaizdų rinkinį. Atkreipkite dėmesį, kad jūsų pageidaujamas (teisingas) vaizdų skaičius viename cikle gali būti neįmanomas, jei nustatysite režimą „atrinkimas be pakeitimo“.",
           "options": [
             {
               "label": "Sampling with replacement"
@@ -33,13 +33,13 @@
           ]
         },
         {
-          "label": "Score in a round can be negative"
+          "label": "Ciklo rezultatas gali būti neigiamas"
         },
         {
-          "label": "Enable \"Show Solution\" button"
+          "label": "Įjungti mygtuką „Rodyti sprendimą“"
         },
         {
-          "label": "Show confirmation dialog on \"Check\""
+          "label": "Rodyti patvirtinimo dialogo langą „Tikrinti“"
         },
         {
           "label": "Už visą klausimą skirti vieną balą"
@@ -67,7 +67,7 @@
               ],
               "label": "Define custom feedback for any score range",
               "description": "Click the \"Add range\" button to add as many ranges as you need. Example: 0-20% Bad score, 21-91% Average Score, 91-100% Great Score!",
-              "entity": "range",
+              "entity": "diapazonas",
               "field": {
                 "fields": [
                   {
@@ -75,8 +75,8 @@
                   },
                   {},
                   {
-                    "label": "Feedback for defined score range",
-                    "placeholder": "Fill in the feedback"
+                    "label": "Atsiliepimas apibrėžtam balų diapazonui",
+                    "placeholder": "Užpildykite atsiliepimą"
                   }
                 ]
               }
@@ -94,7 +94,7 @@
           "description": "\"Total score\" will sum up scores of all rounds. \"One point total\" will award 1 point if all rounds were fully correct, 0 otherwise. \"Custom\" allows to define a score based on score ranges.",
           "options": [
             {
-              "label": "Total score"
+              "label": "Bendras balas"
             },
             {
               "label": "One point total"
@@ -115,7 +115,7 @@
               ],
               "label": "Define custom absolute scores for any total score range",
               "description": "Click the \"Add range\" button to add as many ranges as you need. Example: 0-20% 1, 21-91% 2, 91-100% 3",
-              "entity": "range",
+              "entity": "diapazonas",
               "field": {
                 "fields": [
                   {
@@ -156,7 +156,7 @@
           "default": "Bandyti dar kartą"
         },
         {
-          "label": "Text for \"Show solution\" button",
+          "label": "Mygtuko „Rodyti sprendimą“ tekstas",
           "default": "Rodyti sprendimą"
         },
         {
@@ -178,7 +178,7 @@
           "default": "Tikrinti atsakymus. Atsakymai bus pažymėti kaip teisingi, neteisingi arba neatsakyti."
         },
         {
-          "label": "Assistive technology description for \"Show Solution\" button",
+          "label": "Mygtuko „Rodyti sprendimą“ pagalbinės technologijos aprašymas",
           "default": "Show the solution. The task will be marked with its correct solution."
         },
         {
